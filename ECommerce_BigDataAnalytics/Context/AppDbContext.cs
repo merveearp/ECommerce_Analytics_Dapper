@@ -12,6 +12,8 @@ namespace ECommerce_BigDataAnalytics.Context
             _connectionString = configuration.GetConnectionString("SqlConnection");
         }
 
+
         public IDbConnection CreateConnection() => new SqlConnection(_connectionString);
+
     }
 }

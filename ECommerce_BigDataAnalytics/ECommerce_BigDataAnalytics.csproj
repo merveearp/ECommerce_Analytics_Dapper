@@ -13,9 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
-    <Folder Include="Repositories\CityRepositories\" />
-    <Folder Include="ViewComponents\UI-Home\" />
+    <Folder Include="Models\Widgets\" />
   </ItemGroup>
 
 </Project>
