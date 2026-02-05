@@ -1,70 +1,74 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="dashboard-ecommerce">
-    <div class="container-fluid dashboard-content ">
-        <div class="row">
-            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+    <div class="container-fluid dashboard-content">
+
+       
+        <div class="row mb-4">
+            <div class="col-12">
                 <div class="page-header">
-                    <h2 class="pageheader-title">E-Commerce | Dashboard Template </h2>
-                    <p class="pageheader-text">Nulla euismod urna eros, sit amet scelerisque torton lectus vel mauris facilisis faucibus at enim quis massa lobortis rutrum.</p>
-                    <div class="page-breadcrumb">
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Dashboard</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">E-Commerce Dashboard Template</li>
-                            </ol>
-                        </nav>
+                    <h2 class="pageheader-title">E-Commerce | Dashboard</h2>
+                    <p class="pageheader-text">
+                        Satış, müşteri ve gelir metriklerinin genel görünümü
+                    </p>
+                </div>
+            </div>
+        </div>
+
+       
+        <div class="row">
+
+            @await Component.InvokeAsync("_UIWidget1Component")
+            @await Component.InvokeAsync("_UIWidget2Component")
+
+            <!-- Revenue -->
+            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="text-muted">Revenue</h5>
+
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h1 class="mb-0 text-primary">$5,656</h1>
+                            <span class="text-danger fw-bold">
+                                <i class="fa fa-caret-down"></i> 7%
+                            </span>
+                        </div>
                     </div>
+                    <div id="sparkline-3"></div>
                 </div>
             </div>
+
+            <!-- Growth -->
+            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="text-muted">Growth</h5>
+
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h1 class="mb-0 text-primary">28.45%</h1>
+                            <span class="text-success fw-bold">
+                                <i class="fa fa-caret-up"></i> 4.87%
+                            </span>
+                        </div>
+                    </div>
+                    <div id="sparkline-4"></div>
+                </div>
+            </div>
+
+
+
+
+
+        </div>
+        
+        <div class="row">
+           
+            @await Component.InvokeAsync("_UIPieChart1Component")
+           
         </div>
 
     </div>
 </div>
-
-<!-- ============================================================== -->
-<div class="row">
-    @await Component.InvokeAsync("_UIWidget1Component")
-
-    @await Component.InvokeAsync("_UIWidget2Component")
-
-    
-    <!-- metric -->
-    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="text-muted">Revenue</h5>
-                <div class="metric-value d-inline-block">
-                    <h1 class="mb-1 text-primary">$5,656</h1>
-                </div>
-                <div class="metric-label d-inline-block float-right text-danger">
-                    <i class="fa fa-fw fa-caret-down"></i><span>7.00%</span>
-                </div>
-            </div>
-            <div id="sparkline-3">
-            </div>
-        </div>
-    </div>
-    <!-- /. metric -->
-    <!-- metric -->
-    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="text-muted">Growth</h5>
-                <div class="metric-value d-inline-block">
-                    <h1 class="mb-1 text-primary">+28.45% </h1>
-                </div>
-                <div class="metric-label d-inline-block float-right text-success">
-                    <i class="fa fa-fw fa-caret-up"></i><span>4.87%</span>
-                </div>
-            </div>
-            <div id="sparkline-4"></div>
-        </div>
-    </div>
-    <!-- /. metric -->
-</div>
-<!-- ============================================================== -->

@@ -14,6 +14,8 @@
 
   <ItemGroup>
     <Folder Include="Models\Widgets\" />
+    <Folder Include="Repositories\Widget4Repositories\" />
+    <Folder Include="Repositories\Widget3Repositories\" />
   </ItemGroup>
 
 </Project>

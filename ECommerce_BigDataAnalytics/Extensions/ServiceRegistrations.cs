@@ -1,5 +1,6 @@
 ﻿
 
+using ECommerce_BigDataAnalytics.Repositories.PieChart1Repositories;
 using ECommerce_BigDataAnalytics.Repositories.Widget1Repositories;
 using ECommerce_BigDataAnalytics.Repositories.Widget2Repositories;
 
@@ -11,6 +12,7 @@ namespace ECommerce_BigDataAnalytics.Extensions
         {
             services.AddScoped<ICustomerRepository, CustomerRepository>();
             services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<IPieChart1Repository, PieChart1Repository>();
         }
     }
 }
