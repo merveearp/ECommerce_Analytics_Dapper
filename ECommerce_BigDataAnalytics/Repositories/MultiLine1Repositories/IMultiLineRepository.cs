@@ -4,6 +4,6 @@ namespace ECommerce_BigDataAnalytics.Repositories.MultiLine1Repositories
 {
     public interface IMultiLineRepository
     {
-        Task<List<MonthlyOrderAmountDto>> GetAmountPerMonthly();
+        Task<List<MonthlyOrderCountLineDto>> GetMonthlyOrderCountByStatus();
     }
 }

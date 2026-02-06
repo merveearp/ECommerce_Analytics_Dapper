@@ -1,7 +1,6 @@
 ﻿using Dapper;
 using ECommerce_BigDataAnalytics.Context;
 using ECommerce_BigDataAnalytics.Dtos.LineChart1Dto;
-using ECommerce_BigDataAnalytics.Dtos.PieChart1Dto;
 using System.Data;
 
 namespace ECommerce_BigDataAnalytics.Repositories.MultiLine1Repositories
@@ -9,24 +8,33 @@ namespace ECommerce_BigDataAnalytics.Repositories.MultiLine1Repositories
     public class MultiLineRepository(AppDbContext context) : IMultiLineRepository
     {
         private readonly IDbConnection _db = context.CreateConnection();
-        public async Task<List<MonthlyOrderAmountDto>> GetAmountPerMonthly()
+        public async Task<List<MonthlyOrderCountLineDto>> GetMonthlyOrderCountByStatus()
         {
             var query = @"
+                SET LANGUAGE Turkish;
 
-            SELECT
-                MONTH(OrderDate)  AS 'Month',
-                COUNT(OrderId)    AS 'OrderCount',
-                SUM(TotalAmount)  AS 'TotalAmount'
-            FROM Orders
-            WHERE OrderDate >= '2025-01-01'
-              AND OrderDate <  '2026-01-01'
-            GROUP BY MONTH(OrderDate)
-            ORDER BY Month;
-
+                SELECT
+                    MONTH(o.OrderDate)           AS MonthNumber,
+                    DATENAME(MONTH, o.OrderDate) AS MonthName,
+                    os.StatusName                AS OrderStatusName,
+                    COUNT(o.OrderId)             AS OrderCount
+                FROM Orders o
+                INNER JOIN OrderStatuses os
+                    ON o.OrderStatusId = os.OrderStatusId
+                WHERE o.OrderDate >= '2025-01-01'
+                  AND o.OrderDate <  '2026-01-01'
+                GROUP BY
+                    MONTH(o.OrderDate),
+                    DATENAME(MONTH, o.OrderDate),
+                    os.StatusName
+                ORDER BY
+                    MonthNumber,
+                    os.StatusName;
             ";
 
-            var result = await _db.QueryAsync<MonthlyOrderAmountDto>(query);
+            var result = await _db.QueryAsync<MonthlyOrderCountLineDto>(query);
             return result.ToList();
         }
+
     }
 }

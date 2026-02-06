@@ -1,0 +1,90 @@
+﻿@using ECommerce_BigDataAnalytics.Extensions
+@model List<PaymentTypeDto>
+@*
+    _UIPaymentWidgetsComponent
+    
+*@
+
+
+
+<style>
+    .payment-card {
+        border: none;
+        border-radius: 14px;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+        transition: all 0.25s ease;
+    }
+
+        .payment-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+        }
+
+    .icon-box {
+        width: 56px;
+        height: 56px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 22px;
+    }
+
+        .icon-box.blue {
+            background: linear-gradient(135deg, #3b82f6, #60a5fa);
+        }
+
+        .icon-box.green {
+            background: linear-gradient(135deg, #10b981, #34d399);
+        }
+
+        .icon-box.orange {
+            background: linear-gradient(135deg, #f59e0b, #fbbf24);
+        }
+
+        .icon-box.purple {
+            background: linear-gradient(135deg, #ef5766, #a78bfa);
+        }
+
+
+
+</style>
+
+   @foreach (var item in Model)
+    {
+        
+
+    var name = item.PaymentTypeName.ToLower();
+
+    string colorClass =
+        name.Contains("kredi") ? "blue" :
+        name.Contains("banka") ? "green" :
+        name.Contains("nakit") ? "orange" :
+        name.Contains("havale") || name.Contains("eft") ? "purple" :
+        "blue";
+
+
+
+
+        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12 mb-4">
+            <div class="card payment-card h-100">
+                <div class="card-body d-flex align-items-center">
+
+                <div class="icon-box @colorClass me-3">
+                    <i class="fas fa-money-bill-alt"></i>
+                </div>
+
+
+                    <div>
+                        <h4 class="text-muted mb-1">@item.PaymentTypeName</h4>
+                        <h3 class="mb-1 fw-bold">
+                            $ @item.TotalAmount.ToShortMoney()
+                        </h3>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    }
+

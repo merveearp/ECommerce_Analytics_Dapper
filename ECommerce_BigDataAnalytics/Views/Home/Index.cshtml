@@ -66,21 +66,34 @@
         
         <div class="row">
            
-            @await Component.InvokeAsync("_UIPieChart1Component")
-
+            @await Component.InvokeAsync("_UIPolarChart1Component")
 
             @await Component.InvokeAsync("_UIMultiLine1Component")
 
-
-
-
-           
            
         </div>
 
-        <div class="row">
-            @await Component.InvokeAsync("_UIPolarChart1Component")
+        <br />
 
+        <div class="row mb-3">
+            <div class="col-12">
+                <h4 class="mb-1 fw-bold">Ödeme Tiplerine Göre Ciro Dağılımı</h4>
+                <p class="text-muted mb-0">
+                    Son 1 ay içerisinde ödeme tiplerine göre gerçekleşen toplam ciro dağılımı gösterilmektedir.
+                    Aşağıdaki kartlar, ilgili ödeme yöntemleri üzerinden elde edilen toplam tutarları özetlemektedir.
+                </p>
+            </div>
+        </div>
+
+        <div class="row">
+            @await Component.InvokeAsync("_UIPaymentWidgetsComponent")
+        </div>
+
+
+
+        <div class="row">
+           @*  @await Component.InvokeAsync("_UIPieChart1Component") *@
+           
         </div>
 
     </div>

@@ -1,0 +1,60 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <div class="chart-container">
+        <div class="chart-title">Çoklu Veri - Yıllık Karşılaştırma</div>
+        <canvas id="multiChart"></canvas>
+    </div>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const labels = ["Ocak","Şubat","Mart","Nisan","Mayıs"];
+    const data = [100, 120, 80, 45, 75];      
+    const data2 = [150, 120, 180, 100, 120];
+   
+    new Chart(document.getElementById('multiChart'),
+    {
+        type:'line',
+        data :{
+            labels:labels,
+            datasets :[
+                {
+                label:'2025',
+                data:data,
+                borderColor:'rgb(255, 99, 132)',
+                backgroundColor :'rgba(255, 99, 132, 0.2)'
+                },
+
+                {
+                label:'2026',
+                data:data2,
+                borderColor:'rgb(54, 162, 235)',
+                backgroundColor :'rgba(54, 162, 235, 0.2)'
+                }
+              
+            ]
+        },
+        options: {  // Opsiyonel ama önerilir
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'top'
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+
+    });
+
+
+</script>

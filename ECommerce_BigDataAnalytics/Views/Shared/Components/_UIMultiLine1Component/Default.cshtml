@@ -1,51 +1,102 @@
-﻿
-@*
-    _UIMultiLine1Component
-*@
+﻿@model List<MonthlyOrderCountLineDto>
 
-<!--multi line chart  -->
-<!-- ============================================================== -->
 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
     <div class="card">
-        <h5 class="card-header">Multi Line Labels</h5>
-        <div class="card-body">
-            <div class="ct-chart-multilines ct-golden-section"></div>
+        <h5 class="card-header">Aylık Sipariş Süreci </h5>
+        <div class="card-body" style="height:360px;">
+            <canvas id="comboChart"></canvas>
         </div>
     </div>
 </div>
-<!-- ============================================================== -->
-<!--end multi line chart  -->
+
+@{
+    var months = Model
+        .OrderBy(x => x.MonthNumber)
+        .Select(x => x.MonthName)
+        .Distinct()
+        .ToList();
+
+    var grouped = Model.GroupBy(x => x.OrderStatusName);
+}
+
 <script>
+    function getColor(status) {
+        switch (status) {
+            case 'Beklemede': return '#1E88E5';       // mavi (bar)
+            case 'Onaylandi': return '#F4511E';       // turuncu (bar)
+            case 'Iptal Edildi': return '#C62828';    // kırmızı (bar)
+            case 'Kargoya Verildi': return '#8E24AA'; // mor (line)
+            case 'Teslim Edildi': return '#2E7D32';   // yeşil (line)
+            default: return '#546E7A';
+        }
+    }
 
-    (function(window, document, $, undefined) {
-        "use strict";
-        $(function() {
-     if ($('.ct-chart-multilines').length) {
-                new Chartist.Bar('.ct-chart-multilines', {
-                    labels: ['First quarter of the year', 'Second quarter of the year', 'Third quarter of the year', 'Fourth quarter of the year'],
-                    series: [
-                        [60000, 40000, 80000, 70000],
-                        [40000, 30000, 70000, 65000],
-                        [8000, 3000, 10000, 6000]
-                    ]
-                }, {
-                    seriesBarDistance: 10,
-                    axisX: {
-                        offset: 60
+    function getDatasetType(status) {
+        switch (status) {
+            case 'Kargoya Verildi':
+            case 'Teslim Edildi':
+                return 'line';
+            default:
+                return 'bar';
+        }
+    }
+
+    const chartData = {
+        labels: @Html.Raw(System.Text.Json.JsonSerializer.Serialize(months)),
+        datasets: [
+            @foreach (var group in grouped)
+            {
+                    var data = months.Select(month =>
+                            group.FirstOrDefault(x => x.MonthName == month)?.OrderCount ?? 0
+                    ).ToList();
+
+                    <text>
+                    {
+                        type: getDatasetType('@group.Key'),
+                        label: '@group.Key',
+                        data: @Html.Raw(System.Text.Json.JsonSerializer.Serialize(data)),
+
+                        backgroundColor:
+                            getDatasetType('@group.Key') === 'bar'
+                                ? getColor('@group.Key')
+                                : 'transparent',
+
+                        borderColor: getColor('@group.Key'),
+                        borderWidth: getDatasetType('@group.Key') === 'line' ? 3 : 1,
+
+                        tension: 0.35,
+                        fill: false,
+                        pointRadius: getDatasetType('@group.Key') === 'line' ? 4 : 0,
+                        pointHoverRadius: 6
                     },
-                    axisY: {
-                        offset: 80,
-                        labelInterpolationFnc: function(value) {
-                            return value + ' CHF'
-                        },
-                        scaleMinSpace: 15
-                    }
-                });
+                    </text>
             }
+        ]
+    };
 
-
-        });
-
-    })(window, document, window.jQuery);
-
+    new Chart(document.getElementById('comboChart'), {
+        type: 'bar',
+        data: chartData,
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            },
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function (context) {
+                            return context.dataset.label + ': ' + context.raw + ' sipariş';
+                        }
+                    }
+                }
+            }
+        }
+    });
 </script>

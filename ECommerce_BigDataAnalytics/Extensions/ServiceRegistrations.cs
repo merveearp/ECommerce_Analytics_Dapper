@@ -1,6 +1,7 @@
 ﻿
 
 using ECommerce_BigDataAnalytics.Repositories.MultiLine1Repositories;
+using ECommerce_BigDataAnalytics.Repositories.PaymentWidgetRepositories;
 using ECommerce_BigDataAnalytics.Repositories.PieChart1Repositories;
 using ECommerce_BigDataAnalytics.Repositories.PolarChartStatusRepositories;
 using ECommerce_BigDataAnalytics.Repositories.Widget1Repositories;
@@ -17,6 +18,7 @@ namespace ECommerce_BigDataAnalytics.Extensions
             services.AddScoped<IPieChart1Repository, PieChart1Repository>();
             services.AddScoped<IPolarChartStatusRepository, PolarChartStatusRepository>();
             services.AddScoped<IMultiLineRepository, MultiLineRepository>();
+            services.AddScoped<IPaymentRepository, PaymentRepository>();
         }
     }
 }
