@@ -3,7 +3,7 @@ using ECommerce_BigDataAnalytics.Context;
 using ECommerce_BigDataAnalytics.Dtos.LineChartDto;
 using System.Data;
 
-namespace ECommerce_BigDataAnalytics.Repositories.MultiLine1Repositories
+namespace ECommerce_BigDataAnalytics.Repositories.Line1Repositories
 {
     public class Line1Repository(AppDbContext context) : ILine1Repository
     {

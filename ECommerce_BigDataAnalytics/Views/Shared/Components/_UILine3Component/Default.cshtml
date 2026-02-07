@@ -1,0 +1,88 @@
+﻿@using System.Text.Json
+@model List<MonthlyTotalAmountDto>
+
+@{
+    var months = Model.Select(x => x.MonthName).ToList();
+    var totals = Model.Select(x => x.TotalAmount).ToList();
+}
+
+<div class="col-12">
+  <div class="card">
+    <h5 class="card-header">Aylık Ciro (Total Amount)</h5>
+    <div class="card-body" style="height:360px;">
+        <canvas id="linechart3"></canvas>
+    </div>
+</div>
+</div>
+
+
+<script>
+    const ctx3 = document.getElementById('linechart3').getContext('2d');
+
+    new Chart(ctx3, {
+        type: 'line',
+        data: {
+            labels: @Html.Raw(JsonSerializer.Serialize(months)),
+            datasets: [{
+                label: 'Aylık Toplam Ciro',
+                data: @Html.Raw(JsonSerializer.Serialize(totals)),
+
+               
+                   borderColor: '#10B981',
+    backgroundColor: 'rgba(16,185,129,0.15)',
+
+
+               
+                borderWidth: 3,
+
+               
+                tension: 0.4,
+
+               
+                pointRadius: 4,
+                pointHoverRadius: 6,
+                pointBackgroundColor: '#6366F1',
+                pointBorderColor: '#ffffff',
+                pointBorderWidth: 2,
+
+               
+                fill: true
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+
+            plugins: {
+                legend: {
+                    labels: {
+                        usePointStyle: true,
+                        pointStyle: 'line'
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function (context) {
+                            return context.parsed.y.toLocaleString('tr-TR') + ' ₺';
+                        }
+                    }
+                }
+            },
+
+            scales: {
+                x: {
+                    grid: {
+                        display: false
+                    }
+                },
+                y: {
+                    ticks: {
+                        callback: function (value) {
+                            return value.toLocaleString('tr-TR') + ' ₺';
+                        }
+                    }
+                }
+            }
+        }
+    });
+</script>

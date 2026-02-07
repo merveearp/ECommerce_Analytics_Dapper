@@ -1,4 +1,4 @@
-﻿using ECommerce_BigDataAnalytics.Repositories.MultiLine1Repositories;
+﻿using ECommerce_BigDataAnalytics.Repositories.Line1Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerce_BigDataAnalytics.ViewComponents.UI_Home

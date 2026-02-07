@@ -92,12 +92,26 @@
 
 
         <div class="row">
-            
-            @await Component.InvokeAsync("_UIPieChart1Component") 
 
-            @await Component.InvokeAsync("_UILine2Component")
-            
+         
+           
+                @await Component.InvokeAsync("_UIPieChart1Component")
+         
 
+          
+            <div class="col-xl-6 col-lg-12">
+                <div class="row">
+
+                    
+                        @await Component.InvokeAsync("_UILine2Component")
+
+
+                  
+                        @await Component.InvokeAsync("_UILine3Component")
+
+
+                </div>
+            </div>
 
         </div>
 

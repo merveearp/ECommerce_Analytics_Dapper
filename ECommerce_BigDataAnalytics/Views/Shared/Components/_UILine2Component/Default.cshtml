@@ -5,7 +5,7 @@
     var counts = Model.Select(x =>x.OrderCount).ToList(); 
 }
 
-<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+<div class="col-12 mb-4">
     <div class="card">
         <h5 class="card-header">Aylık Sipariş Sayısı </h5>
         <div class="card-body" style="height:360px;">
@@ -14,9 +14,12 @@
     </div>
 </div>
 
-
 <script>
     const ctx = document.getElementById('linechart2').getContext('2d');
+        const gradient = ctx.createLinearGradient(0, 0, 0, 300);
+    gradient.addColorStop(0, 'rgba(239,68,68,0.45)');
+    gradient.addColorStop(1, 'rgba(239,68,68,0.05)');
+
 
     new Chart(ctx, {
         type: 'line',
@@ -25,14 +28,53 @@
             datasets: [{
                 label: 'Aylık Sipariş Sayısı',
                 data: @Html.Raw(JsonSerializer.Serialize(counts)),
-                borderWidth: 2,
-                tension: 0.4,
-                fill: false
+
+                borderColor: '#EF4444',       
+                backgroundColor: gradient,
+
+                borderWidth: 3,
+                tension: 0,                    
+                pointRadius: 5,
+                pointHoverRadius: 7,
+                pointBackgroundColor: '#EF4444',
+                pointBorderColor: '#FFFFFF',
+                pointBorderWidth: 2,
+                fill: true
             }]
         },
         options: {
             responsive: true,
-            maintainAspectRatio: false
+            maintainAspectRatio: false,
+
+            plugins: {
+                legend: {
+                    labels: {
+                        usePointStyle: true
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function (context) {
+                            return context.parsed.y.toLocaleString('tr-TR') + ' sipariş';
+                        }
+                    }
+                }
+            },
+
+            scales: {
+                x: {
+                    grid: {
+                        display: false
+                    }
+                },
+                y: {
+                    ticks: {
+                        callback: function (value) {
+                            return value.toLocaleString('tr-TR');
+                        }
+                    }
+                }
+            }
         }
     });
 </script>

@@ -1,8 +1,9 @@
 ﻿
 
 using ECommerce_BigDataAnalytics.Repositories.DoughnutChart1Repositories;
+using ECommerce_BigDataAnalytics.Repositories.Line1Repositories;
 using ECommerce_BigDataAnalytics.Repositories.Line2Repositories;
-using ECommerce_BigDataAnalytics.Repositories.MultiLine1Repositories;
+using ECommerce_BigDataAnalytics.Repositories.Line3Repositories;
 using ECommerce_BigDataAnalytics.Repositories.PaymentWidgetRepositories;
 using ECommerce_BigDataAnalytics.Repositories.PieChart1Repositories;
 using ECommerce_BigDataAnalytics.Repositories.Widget1Repositories;
@@ -21,6 +22,8 @@ namespace ECommerce_BigDataAnalytics.Extensions
             services.AddScoped<ILine1Repository, Line1Repository>();
             services.AddScoped<IPaymentRepository, PaymentRepository>();
             services.AddScoped<ILine2Repository, Line2Repository>();
+            services.AddScoped<ILine3Repository, Line3Repository>();
+
 
         }
     }
