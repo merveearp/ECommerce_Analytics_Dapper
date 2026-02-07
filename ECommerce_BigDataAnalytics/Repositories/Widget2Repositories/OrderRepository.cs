@@ -12,7 +12,7 @@ namespace ECommerce_BigDataAnalytics.Repositories.Widget2Repositories
             var query = @"
             SELECT COUNT(*) AS DailyCount
             FROM Orders
-            WHERE OrderDate >= DATEADD(DAY, -8, CONVERT(date, GETDATE()))
+            WHERE OrderDate >= DATEADD(DAY, -30, CONVERT(date, GETDATE()))
               AND OrderDate <  CONVERT(date, GETDATE())
             GROUP BY CONVERT(date, OrderDate)
             ORDER BY CONVERT(date, OrderDate)
@@ -27,7 +27,7 @@ namespace ECommerce_BigDataAnalytics.Repositories.Widget2Repositories
             var query = @"
 
             Select COUNT(*) FROM Orders
-            WHERE OrderDate >= DATEADD(DAY, -8 , GETDATE())
+            WHERE OrderDate >= DATEADD(DAY, -30 , GETDATE())
             AND OrderDate < GETDATE() 
  
             ";
@@ -40,8 +40,8 @@ namespace ECommerce_BigDataAnalytics.Repositories.Widget2Repositories
             var query = @"
                 SELECT COUNT(*)
                 FROM Orders
-                WHERE OrderDate >= DATEADD(DAY, -15, CONVERT(date, GETDATE()))
-                  AND OrderDate <  DATEADD(DAY, -8, CONVERT(date, GETDATE()))
+                WHERE OrderDate >= DATEADD(DAY, -60, CONVERT(date, GETDATE()))
+                  AND OrderDate <  DATEADD(DAY, -30, CONVERT(date, GETDATE()))
             ";
 
             return _db.QuerySingleAsync<int>(query);

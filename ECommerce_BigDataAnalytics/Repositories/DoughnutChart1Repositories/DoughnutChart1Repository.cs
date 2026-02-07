@@ -1,15 +1,14 @@
 ﻿using Dapper;
 using ECommerce_BigDataAnalytics.Context;
-using ECommerce_BigDataAnalytics.Dtos.PieChart1Dto;
-using ECommerce_BigDataAnalytics.Dtos.PolarChart1Dto;
+using ECommerce_BigDataAnalytics.Dtos.DoughnutChartDto;
 using System.Data;
 
-namespace ECommerce_BigDataAnalytics.Repositories.PolarChartStatusRepositories
+namespace ECommerce_BigDataAnalytics.Repositories.DoughnutChart1Repositories
 {
-    public class PolarChartStatusRepository(AppDbContext context) : IPolarChartStatusRepository
+    public class DoughnutChart1Repository(AppDbContext context) : IDoughnutChart1Repository
     {
         private readonly IDbConnection _db = context.CreateConnection();
-        public async Task<List<PolarChartOrderStatusDto>> GetOrdersCountByOrderStatus()
+        public async Task<List<DoughnutChart1Dto>> GetOrdersCountByOrderStatus()
         {
             var query = @"
         SELECT 
@@ -23,7 +22,7 @@ namespace ECommerce_BigDataAnalytics.Repositories.PolarChartStatusRepositories
         ORDER BY o.StatusName;
     ";
 
-            var result = await _db.QueryAsync<PolarChartOrderStatusDto>(query);
+            var result = await _db.QueryAsync<DoughnutChart1Dto>(query);
             return result.ToList();
         }
 

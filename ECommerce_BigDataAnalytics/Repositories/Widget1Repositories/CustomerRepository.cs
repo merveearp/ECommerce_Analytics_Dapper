@@ -13,7 +13,7 @@ public class CustomerRepository(AppDbContext context) : ICustomerRepository
         var query = @"
         SELECT COUNT(*)
         FROM Customers
-        WHERE CreatedDate >= DATEADD(DAY, -8, CONVERT(date, GETDATE()))
+        WHERE CreatedDate >= DATEADD(DAY, -30, CONVERT(date, GETDATE()))
           AND CreatedDate <  CONVERT(date, GETDATE())
     ";
 
@@ -26,8 +26,8 @@ public class CustomerRepository(AppDbContext context) : ICustomerRepository
         var query = @"
         SELECT COUNT(*)
         FROM Customers
-        WHERE CreatedDate >= DATEADD(DAY, -15, CONVERT(date, GETDATE()))
-          AND CreatedDate <  DATEADD(DAY, -8, CONVERT(date, GETDATE()))
+        WHERE CreatedDate >= DATEADD(DAY, -60, CONVERT(date, GETDATE()))
+          AND CreatedDate <  DATEADD(DAY, -30, CONVERT(date, GETDATE()))
     ";
 
         return _db.QuerySingleAsync<int>(query);
@@ -39,7 +39,7 @@ public class CustomerRepository(AppDbContext context) : ICustomerRepository
         var query = @"
         SELECT COUNT(*) AS DailyCount
         FROM Customers
-        WHERE CreatedDate >= DATEADD(DAY, -8, CONVERT(date, GETDATE()))
+        WHERE CreatedDate >= DATEADD(DAY, -30, CONVERT(date, GETDATE()))
           AND CreatedDate <  CONVERT(date, GETDATE())
         GROUP BY CONVERT(date, CreatedDate)
         ORDER BY CONVERT(date, CreatedDate)

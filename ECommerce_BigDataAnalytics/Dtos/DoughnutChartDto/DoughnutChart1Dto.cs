@@ -1,6 +1,6 @@
-﻿namespace ECommerce_BigDataAnalytics.Dtos.PolarChart1Dto
+﻿namespace ECommerce_BigDataAnalytics.Dtos.DoughnutChartDto
 {
-    public class PolarChartOrderStatusDto
+    public class DoughnutChart1Dto
     {
         public string StatusName { get; set; }
         public int OrderCount { get; set; }

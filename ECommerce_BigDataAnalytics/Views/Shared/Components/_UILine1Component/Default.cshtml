@@ -1,10 +1,10 @@
-﻿@model List<MonthlyOrderCountLineDto>
+﻿@model List<MonthlyOrderStatusCountDto>
 
 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
     <div class="card">
         <h5 class="card-header">Aylık Sipariş Süreci </h5>
         <div class="card-body" style="height:360px;">
-            <canvas id="comboChart"></canvas>
+            <canvas id="lineChart1"></canvas>
         </div>
     </div>
 </div>
@@ -22,11 +22,11 @@
 <script>
     function getColor(status) {
         switch (status) {
-            case 'Beklemede': return '#1E88E5';       // mavi (bar)
-            case 'Onaylandi': return '#F4511E';       // turuncu (bar)
-            case 'Iptal Edildi': return '#C62828';    // kırmızı (bar)
-            case 'Kargoya Verildi': return '#8E24AA'; // mor (line)
-            case 'Teslim Edildi': return '#2E7D32';   // yeşil (line)
+            case 'Beklemede': return '#1E88E5';       
+            case 'Onaylandi': return '#F4511E';       
+            case 'Iptal Edildi': return '#C62828';    
+            case 'Kargoya Verildi': return '#8E24AA'; 
+            case 'Teslim Edildi': return '#2E7D32';   
             default: return '#546E7A';
         }
     }
@@ -74,7 +74,7 @@
         ]
     };
 
-    new Chart(document.getElementById('comboChart'), {
+    new Chart(document.getElementById('lineChart1'), {
         type: 'bar',
         data: chartData,
         options: {

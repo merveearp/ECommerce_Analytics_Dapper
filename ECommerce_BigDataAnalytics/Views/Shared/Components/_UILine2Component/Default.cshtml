@@ -1,0 +1,38 @@
+﻿@using System.Text.Json
+@model List<MonthlyOrderCountDto>
+@{
+    var months = Model.Select(x =>x.MonthName).ToList(); 
+    var counts = Model.Select(x =>x.OrderCount).ToList(); 
+}
+
+<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+    <div class="card">
+        <h5 class="card-header">Aylık Sipariş Sayısı </h5>
+        <div class="card-body" style="height:360px;">
+            <canvas id="linechart2"></canvas>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    const ctx = document.getElementById('linechart2').getContext('2d');
+
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: @Html.Raw(JsonSerializer.Serialize(months)),
+            datasets: [{
+                label: 'Aylık Sipariş Sayısı',
+                data: @Html.Raw(JsonSerializer.Serialize(counts)),
+                borderWidth: 2,
+                tension: 0.4,
+                fill: false
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false
+        }
+    });
+</script>

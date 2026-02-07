@@ -30,33 +30,33 @@
         }
     ];
 
-        const colors = [
-        '#1E88E5', 
-        '#E53935', 
-        '#43A047', 
-        '#FB8C00', 
-        '#8E24AA', 
-        '#00897B', 
-        '#FDD835', 
-        '#6D4C41', 
-        '#3949AB', 
-        '#D81B60', 
-        '#546E7A', 
-        '#00ACC1', 
-        '#FB8C00'  
+                 
+         const colors = [
+        '#2C3E50',  
+        '#34495E',  
+        '#7F8C8D',  
+        '#95A5A6',  
+        '#BDC3C7',  
+        '#ECF0F1',  
+        '#16A085',  
+        '#27AE60',  
+        '#2980B9',  
+        '#8E44AD',  
+        '#E74C3C',  
+        '#F39C12',  
+        '#D35400'   
     ];
 
-
-    new Chart(document.getElementById('categoryChart'), {
-        type: 'pie',
-        data: {
-            labels: labels,
-            datasets: [{
-                label: 'Kategori Bazlı Ürün Sayısı',
-                data: data,
-                backgroundColor: colors.slice(0, data.length),
-                borderWidth: 1
-            }]
-        }
-    });
+        new Chart(document.getElementById('categoryChart'), {
+            type: 'pie',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Kategori Bazlı Ürün Sayısı',
+                    data: data,
+                    backgroundColor: colors.slice(0, data.length),
+                    borderWidth: 1
+                }]
+            }
+        });
 </script>

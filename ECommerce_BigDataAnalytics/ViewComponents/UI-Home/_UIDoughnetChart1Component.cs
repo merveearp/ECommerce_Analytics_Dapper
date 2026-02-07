@@ -1,14 +1,13 @@
-﻿using ECommerce_BigDataAnalytics.Repositories.PieChart1Repositories;
-using ECommerce_BigDataAnalytics.Repositories.PolarChartStatusRepositories;
+﻿using ECommerce_BigDataAnalytics.Repositories.DoughnutChart1Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerce_BigDataAnalytics.ViewComponents.UI_Home
 {
-    public class _UIPolarChart1Component : ViewComponent
+    public class _UIDoughnetChart1Component : ViewComponent
     {
-        private readonly IPolarChartStatusRepository _chart2Repository;
+        private readonly IDoughnutChart1Repository _chart2Repository;
 
-        public _UIPolarChart1Component(IPolarChartStatusRepository chart2Repository)
+        public _UIDoughnetChart1Component(IDoughnutChart1Repository chart2Repository)
         {
             _chart2Repository = chart2Repository;
         }

@@ -1,6 +1,6 @@
-﻿namespace ECommerce_BigDataAnalytics.Dtos.LineChart1Dto
+﻿namespace ECommerce_BigDataAnalytics.Dtos.LineChartDto
 {
-    public class MonthlyOrderCountLineDto
+    public class MonthlyOrderStatusCountDto
     {
         public int MonthNumber { get; set; }
         public string MonthName { get; set; }     

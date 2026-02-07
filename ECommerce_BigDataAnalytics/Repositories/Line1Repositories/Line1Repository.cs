@@ -1,14 +1,14 @@
 ﻿using Dapper;
 using ECommerce_BigDataAnalytics.Context;
-using ECommerce_BigDataAnalytics.Dtos.LineChart1Dto;
+using ECommerce_BigDataAnalytics.Dtos.LineChartDto;
 using System.Data;
 
 namespace ECommerce_BigDataAnalytics.Repositories.MultiLine1Repositories
 {
-    public class MultiLineRepository(AppDbContext context) : IMultiLineRepository
+    public class Line1Repository(AppDbContext context) : ILine1Repository
     {
         private readonly IDbConnection _db = context.CreateConnection();
-        public async Task<List<MonthlyOrderCountLineDto>> GetMonthlyOrderCountByStatus()
+        public async Task<List<MonthlyOrderStatusCountDto>> GetMonthlyOrderCountByStatus()
         {
             var query = @"
                 SET LANGUAGE Turkish;
@@ -32,7 +32,7 @@ namespace ECommerce_BigDataAnalytics.Repositories.MultiLine1Repositories
                     os.StatusName;
             ";
 
-            var result = await _db.QueryAsync<MonthlyOrderCountLineDto>(query);
+            var result = await _db.QueryAsync<MonthlyOrderStatusCountDto>(query);
             return result.ToList();
         }
 
