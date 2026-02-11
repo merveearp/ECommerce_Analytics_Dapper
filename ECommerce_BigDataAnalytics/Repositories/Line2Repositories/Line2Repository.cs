@@ -29,7 +29,6 @@ namespace ECommerce_BigDataAnalytics.Repositories.Line2Repositories
 
             var result = await _db.QueryAsync<MonthlyOrderCountDto>(query);
             return result.ToList();
-
           
         }
     }
