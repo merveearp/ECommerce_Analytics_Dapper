@@ -15,8 +15,31 @@ namespace ECommerce_BigDataAnalytics.ViewComponents.UI_Home
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var values = await _bar1Repository.GetCountByStatusAsync();
-            return View(values);
+            var data = await _bar1Repository.GetCountByStatusAsync();
+
+            var months = Enumerable.Range(1, 12).ToList();
+
+            var labels = new[]
+            {
+        "Ocak","Şubat","Mart","Nisan","Mayıs","Haziran",
+        "Temmuz","Ağustos","Eylül","Ekim","Kasım","Aralık"
+    };
+
+            var datasets = data
+                .GroupBy(x => x.StatusName)
+                .Select(g => new
+                {
+                    label = g.Key,
+                    data = months.Select(m =>
+                        g.FirstOrDefault(x => x.MonthNumber == m)?.OrderCount ?? 0
+                    ).ToList()   
+                })
+                .ToList();       
+
+            ViewBag.Labels = labels;
+            ViewBag.Datasets = datasets;
+
+            return View();
         }
     }
 }

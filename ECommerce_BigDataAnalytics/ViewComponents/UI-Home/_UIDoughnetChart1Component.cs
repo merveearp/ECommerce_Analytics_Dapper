@@ -1,4 +1,5 @@
-﻿using ECommerce_BigDataAnalytics.Repositories.DoughnutChart1Repositories;
+﻿using ECommerce_BigDataAnalytics.Dtos.DoughnutChartDto;
+using ECommerce_BigDataAnalytics.Repositories.DoughnutChart1Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerce_BigDataAnalytics.ViewComponents.UI_Home
@@ -15,6 +16,9 @@ namespace ECommerce_BigDataAnalytics.ViewComponents.UI_Home
         public async Task<IViewComponentResult> InvokeAsync()
         {
             var values = await _chart1Repository.GetOrdersCountByOrderStatus();
+
+            var value = await _chart1Repository.GetOrdersCountByTotal();
+            ViewBag.Total = value;            
             return View(values);
         }
     

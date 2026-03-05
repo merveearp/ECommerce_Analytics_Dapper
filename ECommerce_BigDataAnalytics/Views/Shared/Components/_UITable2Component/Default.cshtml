@@ -1,0 +1,89 @@
+﻿@using ECommerce_BigDataAnalytics.Dtos.TableDto
+@model List<RecentOrderDto>
+
+@{
+    int count = 0;
+}
+
+<div class="card shadow-sm border-0 rounded-3">
+
+
+    <div class="card-header bg-white border-0 py-3">
+        <h4 class="fw-bold mb-0 text-primary">
+            🛒 Son Sipariş Kayıtları
+        </h4>
+        <small class="text-muted">
+            Son gerçekleşen satış işlemleri
+        </small>
+    </div>
+
+    <div class="card-body p-0">
+        <div class="table-responsive">
+
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>#</th>
+                        <th>Kategori</th>
+                        <th>Ürün</th>
+                        <th class="text-center">Adet</th>
+                        <th class="text-end">Fiyat</th>
+                        <th>Müşteri</th>
+                        <th class="text-center">Durum</th>
+                        <th class="text-center">Ödeme</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        count++;
+
+                        <tr>
+                            <td class="fw-semibold">@count</td>
+
+                            <td>
+                                <span class="badge bg-secondary">
+                                    @item.CategoryName
+                                </span>
+                            </td>
+
+                            <td class="fw-medium">
+                                @item.ProductName
+                            </td>
+
+                            <td class="text-center">
+                                <span class="badge bg-info text-dark">
+                                    @item.Quantity
+                                </span>
+                            </td>
+
+                            <td class="text-end fw-bold text-success">
+                                @item.ProductPrice $
+                            </td>
+
+                            <td>
+                                @item.CustomerName @item.CustomerLastName
+                            </td>
+
+                            <td class="text-center">
+                                <span class="badge bg-warning text-dark">
+                                    @item.OrderStatus
+                                </span>
+                            </td>
+
+                            <td class="text-center">
+                                <span class="badge bg-primary">
+                                    @item.TypeName
+                                </span>
+                            </td>
+
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+
+        </div>
+    </div>
+</div>

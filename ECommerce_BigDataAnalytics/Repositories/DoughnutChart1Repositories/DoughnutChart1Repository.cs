@@ -26,5 +26,30 @@ namespace ECommerce_BigDataAnalytics.Repositories.DoughnutChart1Repositories
             return result.ToList();
         }
 
+        public async Task<List<DoughnutChart1Dto>> GetOrdersCountByOrderStatus2()
+        {
+            var query = @"
+        SELECT 
+            o.StatusName AS StatusName,
+            COUNT(r.OrderId) AS OrderCount
+        FROM Orders r
+        INNER JOIN OrderStatuses o 
+            ON o.OrderStatusId = r.OrderStatusId
+                GROUP BY o.StatusName
+                ORDER BY o.StatusName;
+            ";
+
+            var result = await _db.QueryAsync<DoughnutChart1Dto>(query);
+            return result.ToList();
+        }
+        
+
+        public async Task<int> GetOrdersCountByTotal()
+        {
+            var query = @" SELECT  COUNT(r.OrderId) FROM Orders r
+            ";
+            var result = await _db.QueryAsync<int>(query);
+            return result.FirstOrDefault();
+        }
     }
 }

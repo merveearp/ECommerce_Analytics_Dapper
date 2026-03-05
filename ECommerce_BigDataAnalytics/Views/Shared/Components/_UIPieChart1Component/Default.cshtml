@@ -4,14 +4,14 @@
 *@
 
 
-<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+
     <div class="card">
         <h5 class="card-header">Kategorilere Göre Ürün Dağılımı </h5>
-        <div class="card-body" style="height:500px;">
+        <div class="card-body" style="height:600px;">
             <canvas id="categoryChart"></canvas>
         </div>
     </div>
-</div>
+
 
 
 
@@ -32,31 +32,47 @@
 
                  
          const colors = [
-        '#2C3E50',  
-        '#34495E',  
-        '#7F8C8D',  
-        '#95A5A6',  
-        '#BDC3C7',  
-        '#ECF0F1',  
-        '#16A085',  
-        '#27AE60',  
-        '#2980B9',  
-        '#8E44AD',  
-        '#E74C3C',  
-        '#F39C12',  
-        '#D35400'   
+        '#CBF5F2',
+        '#78B3AE',
+        '#83C3C9',
+        '#92DECE',
+        '#2B9BA1',
+        '#39E3C0',
+        '#057AA1',
+        '#41869C',
+        '#C3D7DB',
+        '#0D4E63',
+        '#90D6D2',
+        '#46889E',
+        '#051E26',
+        '#D3ECF2'
     ];
 
-        new Chart(document.getElementById('categoryChart'), {
-            type: 'pie',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: 'Kategori Bazlı Ürün Sayısı',
-                    data: data,
-                    backgroundColor: colors.slice(0, data.length),
-                    borderWidth: 1
-                }]
+           new Chart(document.getElementById('categoryChart'), {
+        type: 'pie',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Kategori Bazlı Ürün Sayısı',
+                data: data,
+                backgroundColor: colors.slice(0, data.length),
+                borderWidth: 1
+            }]
+        },
+        options: {
+
+            plugins: {
+
+                legend: {
+                    position: 'right',  
+                    labels: {
+                        boxWidth: 15,
+                        padding: 15
+                    }
+                }
+
             }
-        });
+
+        }
+    });
 </script>

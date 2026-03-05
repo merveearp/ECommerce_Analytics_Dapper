@@ -15,9 +15,9 @@ namespace ECommerce_BigDataAnalytics.ViewComponents.UI_Home
        
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var current = await _customerRepository.GetLast7DaysCustomerCountAsync(); //son 7 gün müşteri sayısı
-            var previous = await _customerRepository.GetPrevious7DaysCustomerCountAsync(); //son 14 ile 7 gün arasındaki sayı
-            var sparkline = await _customerRepository.GetLast7DaysDailyCustomerCountsAsync(); //son 7 gün gün sayı
+            var current = await _customerRepository.GetLast7DaysCustomerCountAsync(); 
+            var previous = await _customerRepository.GetPrevious7DaysCustomerCountAsync(); 
+            var sparkline = await _customerRepository.GetLast7DaysDailyCustomerCountsAsync();
 
             ViewBag.TotalCustomers = current;
             ViewBag.ChangeRate = CalculateRate(current, previous);

@@ -1,35 +1,37 @@
-﻿
-@*
+﻿@*
     _LayoutSidebarComponent
 *@
 
-
 <div class="nav-left-sidebar sidebar-dark">
     <div class="menu-list">
-        <nav class="navbar navbar-expand-lg navbar-light">
-            <a class="d-xl-none d-lg-none" href="#">Dashboard</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav flex-column">
-                   
-                    <li class="nav-item ">
-                        <a class="nav-link active" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-1" aria-controls="submenu-1"><i class="fa fa-fw fa-user-circle"></i>Dashboard </a>
-                        <div id="submenu-1" class="collapse submenu" style="">
-                            <ul class="nav flex-column">
-                                <li class="nav-item">
+        <nav class="navbar navbar-expand-lg navbar-dark">
 
-                                    <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-1-2" aria-controls="submenu-1-2">E-Commerce</a>
-                                    
-                                </li>
-                               
-                            </ul>
-                        </div>
+            <div class="collapse navbar-collapse show" id="navbarNav">
+                <ul class="navbar-nav flex-column w-100">
+
+                    <!-- Dashboard 1 -->
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           asp-action="Index"
+                           asp-controller="Home">
+                            <i class="fa fa-chart-line me-2"></i>
+                           Dashboard
+                        </a>
                     </li>
-                   
+
+                    <!-- Dashboard 2 -->
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           asp-action="Index"
+                           asp-controller="Dashboard1">
+                            <i class="fa fa-chart-pie me-2"></i>
+                            Dashboard1
+                        </a>
+                    </li>
+
                 </ul>
             </div>
+
         </nav>
     </div>
 </div>

@@ -66,72 +66,57 @@
         
         <div class="row">
 
-            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
+            <div class="col-xl-5 col-lg-3 col-md-6 col-sm-12">
                 @await Component.InvokeAsync("_UIDoughnetChart1Component")
             </div>
 
-            <div class="col-xl-9 col-lg-3 col-md-6 col-sm-12">
-            @await Component.InvokeAsync("_UITable1Component")
+            <div class="col-xl-7 col-lg-3 col-md-6 col-sm-12">
+                @await Component.InvokeAsync("_UIBar1Component")
             </div>
         </div>
-            
+
+           <br /> 
           
         <div class="row">
-            <div class="col-xl-9 col-lg-3 col-md-6 col-sm-12">
-                @await Component.InvokeAsync("_UIDoughnetChart1Component")
+
+
+
+            <div class="col-xl-5 col-lg-3 col-md-6 col-sm-12">
+                @await Component.InvokeAsync("_UITable1Component")
+            </div>
+
+            <div class="col-xl-7 col-lg-3 col-md-6 col-sm-12">
+              
+                @await Component.InvokeAsync("_UILine1Component")
+              
+
             </div>
           
 
         </div>
            
-
-           
-
-
-
-
-        <div class="row">
-
-            @await Component.InvokeAsync("_UILine1Component")
-
-        </div>
 
         <br />
 
-        <div class="row mb-3">
-            <div class="col-12">
-                <h4 class="mb-1 fw-bold">Ödeme Tiplerine Göre Ciro Dağılımı</h4>
-                <p class="text-muted mb-0">
-                    Son 1 ay içerisinde ödeme tiplerine göre gerçekleşen toplam ciro dağılımı gösterilmektedir.
-                    Aşağıdaki kartlar, ilgili ödeme yöntemleri üzerinden elde edilen toplam tutarları özetlemektedir.
-                </p>
-            </div>
-        </div>
 
         <div class="row">
-            @await Component.InvokeAsync("_UIPaymentWidgetsComponent")
-        </div>
-
-
-
-        <div class="row">
-                
-
-
-            @await Component.InvokeAsync("_UILine2Component")
-
-            @await Component.InvokeAsync("_UILine3Component")
-          
-
-        </div>
-
-        <div class="row">
-
-            @await Component.InvokeAsync("_UIPieChart1Component")
            
+            <div class="col-xl-3 col-lg-12 col-md-3 col-sm-12 col-12">
+                @await Component.InvokeAsync("_UIProfit1Component")
 
+            </div>
+            <!-- recent orders  -->
+          
+            <div class="col-xl-9 col-lg-12 col-md-6 col-sm-12 col-12">
+                @await Component.InvokeAsync("_UITable2Component")
 
+            </div>
+        
+            <!-- end recent orders  -->
+          
         </div>
+
+
 
     </div>
 </div>

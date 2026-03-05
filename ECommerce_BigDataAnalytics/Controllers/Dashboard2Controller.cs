@@ -2,7 +2,7 @@
 
 namespace ECommerce_BigDataAnalytics.Controllers
 {
-    public class CountyController : Controller
+    public class Dashboard2Controller : Controller
     {
         public IActionResult Index()
         {

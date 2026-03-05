@@ -1,0 +1,33 @@
+﻿@*
+    _UIDashboard1Bar2Component
+*@
+
+
+<div class="card">
+    <h5 class="card-header">Aylık Sipariş Durumu & Süreci </h5>
+    <div class="card-body" style="height:360px;">
+
+        <div id="myPlot" style="width:100%;max-width:700px"></div>
+    </div>
+</div>
+
+
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+    <script>
+    const xArray =  @Html.Raw(Json.Serialize(ViewBag.CategoryName));
+    const yArray = @Html.Raw(Json.Serialize(ViewBag.OrderCount));
+
+    const data = [{
+      x:xArray,
+      y:yArray,
+      type:"bar",
+      orientation:"v",
+      marker: {color:"rgba(0,0,255,0.6)"}
+    }];
+
+    const layout = {title:"En Çok Sipariş Alan Kategoriler "};
+
+    Plotly.newPlot("myPlot", data, layout);
+</script>
+
