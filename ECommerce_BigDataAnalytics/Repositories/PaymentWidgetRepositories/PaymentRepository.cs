@@ -22,7 +22,7 @@ namespace ECommerce_BigDataAnalytics.Repositories.PaymentWidgetRepositories
                 group by p.PaymentTypeName
             ";
 
-            var result = await db.QueryAsync<PaymentTypeDto>(query);
+            var result = await db.QueryAsync<PaymentTypeDto>(query,commandTimeout:120);
             return result.ToList();
         }
     }

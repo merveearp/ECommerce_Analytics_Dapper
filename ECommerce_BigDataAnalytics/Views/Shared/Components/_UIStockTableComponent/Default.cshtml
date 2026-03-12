@@ -1,0 +1,73 @@
+﻿@using ECommerce_BigDataAnalytics.Dtos.TableDto
+@using System.Text.Json
+@model List<StockDistributionDto>
+
+<div class="card h-100">
+    <h5 class="card-header">Stok Dağılımı Analizi</h5>
+
+    <div class="card-body d-flex justify-content-center align-items-center">
+        <canvas id="stockChart" style="max-height:320px;"></canvas>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+<script>
+
+          document.addEventListener("DOMContentLoaded", function () {
+
+        const canvas = document.getElementById("stockChart");
+        if (!canvas) return;
+
+        const rawData = @Html.Raw(JsonSerializer.Serialize(Model ?? new List<StockDistributionDto>()));
+
+        const labels = rawData.map(x => x.StockRange);
+        const values = rawData.map(x => x.ProductCount);
+
+        const colors = labels.map(label => {
+
+            if (label.includes("0-20"))   return "#ff5252";   // kritik stok
+            if (label.includes("21-80"))  return "#ffb74d";   // düşük stok
+            if (label.includes("81-200")) return "#4caf50";   // ideal
+            if (label.includes("201-400")) return "#42a5f5";  // yüksek
+            return "#7e57c2";                                 // aşırı stok
+
+        });
+
+        new Chart(canvas, {
+            type: "bar",
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: "Ürün Sayısı",
+                    data: values,
+                    backgroundColor: colors,
+                    borderRadius: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: "Ürün Sayısı"
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: "Stok Aralığı"
+                        }
+                    }
+                }
+            }
+        });
+
+    });
+
+</script>

@@ -27,7 +27,7 @@ namespace ECommerce_BigDataAnalytics.Repositories.Line2Repositories
 
             ";
 
-            var result = await _db.QueryAsync<MonthlyOrderCountDto>(query);
+            var result = await _db.QueryAsync<MonthlyOrderCountDto>(query,commandTimeout:120);
             return result.ToList();
           
         }

@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Dashboard1";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -63,15 +63,16 @@
         <div class="row g-4">
 
 
-            <div class="col-xl-4 col-lg-5 col-md-12">
+            <div class="col-xl-7 col-lg-5 col-md-12">
 
                 @await Component.InvokeAsync("_UIDashboard1Bar2Component")
 
-            </div>
+            </div> 
 
-            <div class="col-xl-4 col-lg-7 col-md-12">
+            <div class="col-xl-5 col-lg-7 col-md-12">
 
-               
+         @await Component.InvokeAsync("_UIDashboard1LowProductComponent")
+
 
             </div>
 

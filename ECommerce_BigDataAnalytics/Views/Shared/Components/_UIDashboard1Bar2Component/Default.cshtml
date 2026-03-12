@@ -1,33 +1,115 @@
-﻿@*
-    _UIDashboard1Bar2Component
-*@
+﻿@model List<Bar2ChartDto>
 
+<div class="card shadow-sm border-0 rounded-3 h-100">
 
-<div class="card">
-    <h5 class="card-header">Aylık Sipariş Durumu & Süreci </h5>
-    <div class="card-body" style="height:360px;">
-
-        <div id="myPlot" style="width:100%;max-width:700px"></div>
+    <div class="card-header bg-white border-0">
+        <h5 class="mb-0 fw-semibold text-primary">
+            <i class="bi bi-bar-chart-line me-2"></i>
+            En Çok Sipariş Alan Kategoriler
+        </h5>
     </div>
+
+    <div class="card-body">
+
+     
+        <hr class="my-4" />
+
+        <!-- TABLE -->
+        <div class="table-responsive">
+            <table class="table table-sm align-middle mb-0">
+
+                <thead class="small text-muted border-bottom">
+                    <tr>
+                        <th>#</th>
+                        <th>Kategori</th>
+                        <th class="text-end">Sipariş</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    @{
+                        int count = 0;
+                    }
+
+                    @foreach (var item in Model)
+                    {
+                        count++;
+
+                        <tr>
+                            <td class="text-muted">@count</td>
+
+                            <td class="fw-semibold">
+                                @item.CategoryName
+                            </td>
+
+                            <td class="text-end text-primary fw-semibold">
+                                @item.OrderCount.ToString("N0")
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+        </div>
+
+        <div id="categoryBarChart" style="width:100%; height:380px;"></div>
+
+    </div>
+
 </div>
 
 
-<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 
-    <script>
-    const xArray =  @Html.Raw(Json.Serialize(ViewBag.CategoryName));
-    const yArray = @Html.Raw(Json.Serialize(ViewBag.OrderCount));
+<script>
 
-    const data = [{
-      x:xArray,
-      y:yArray,
-      type:"bar",
-      orientation:"v",
-      marker: {color:"rgba(0,0,255,0.6)"}
-    }];
+    document.addEventListener("DOMContentLoaded", function () {
 
-    const layout = {title:"En Çok Sipariş Alan Kategoriler "};
+        const data = [{
+            x: @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.Select(x => x.CategoryName))),
+            y: @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.Select(x => x.OrderCount))),
+            type: "bar",
 
-    Plotly.newPlot("myPlot", data, layout);
+            marker: {
+                color: "#3B82F6",
+                line: {
+                    color: "#1D4ED8",
+                    width: 1
+                }
+            },
+
+            hovertemplate:
+            "<b>Kategori:</b> %{x}<br>" +
+            "<b>Sipariş:</b> %{y}<extra></extra>"
+        }];
+
+        const layout = {
+
+            margin: {
+                t: 20,
+                b: 120,
+                l: 60,
+                r: 20
+            },
+
+            xaxis: {
+                title: "Kategori",
+                tickangle: -35,
+                tickfont: { size: 11 }
+            },
+
+            yaxis: {
+                title: "Sipariş Sayısı",
+                gridcolor: "#E5E7EB"
+            },
+
+            paper_bgcolor: "rgba(0,0,0,0)",
+            plot_bgcolor: "rgba(0,0,0,0)"
+        };
+
+        Plotly.newPlot("categoryBarChart", data, layout, { responsive: true });
+
+    });
+
 </script>
-

@@ -1,88 +1,75 @@
 ﻿@model List<DoughnutChart1Dto>
 
-
-    <div class="card h-100">
-        <h5 class="card-header">Sipariş Durum & Sipariş Sayısı</h5>
-        <div class="card-body d-flex justify-content-center align-items-center">
-            <canvas id="orderPolarChart" style="max-height:300px;"></canvas>
-        </div>
+<div class="card h-100">
+    <h5 class="card-header">Sipariş Durum & Sipariş Sayısı</h5>
+    <div class="card-body d-flex justify-content-center align-items-center">
+        <canvas id="orderPolarChart" style="max-height:300px;"></canvas>
     </div>
+</div>
 
+@using System.Text.Json
 
 <script>
 
-    document.addEventListener("DOMContentLoaded", function () {
+    const data = @Html.Raw(JsonSerializer.Serialize(Model));
 
-        const ctx = document.getElementById('orderPolarChart');
-        if (!ctx) return;
+    const labels = data.map(x => x.StatusName);
+    const values = data.map(x => x.OrderCount);
 
-        const labels = [
-            @foreach (var item in Model)
-            {
-                    <text>'@Html.Raw(item.StatusName)',</text>
+    const total = '@ViewBag.Total';
+
+    const ctx = document.getElementById('orderPolarChart');
+
+    if (ctx) {
+
+        const centerTextPlugin = {
+            id: 'centerText',
+            beforeDraw(chart) {
+
+                const { ctx } = chart;
+                const meta = chart.getDatasetMeta(0);
+
+                if (!meta.data.length) return;
+
+                const centerX = meta.data[0].x;
+                const centerY = meta.data[0].y;
+
+                ctx.save();
+
+                ctx.textAlign = "center";
+                ctx.textBaseline = "middle";
+
+                ctx.font = "bold 26px Arial";
+                ctx.fillStyle = "#333";
+                ctx.fillText(total, centerX, centerY - 8);
+
+                ctx.font = "14px Arial";
+                ctx.fillStyle = "#777";
+                ctx.fillText("Toplam Sipariş", centerX, centerY + 16);
+
+                ctx.restore();
             }
-        ];
-
-        const data = [
-            @foreach (var item in Model)
-            {
-                    <text>@item.OrderCount,</text>
-            }
-        ];
-
-        const colors = [
-            '#39C4E3',
-            '#BD1C0D',
-            '#59DE5B',
-            '#D9E339',
-            '#FFB74D'
-        ];
-
-           const centerTextPlugin = {
-        id: 'centerText',
-        beforeDraw(chart) {
-            const { ctx } = chart;
-
-            const meta = chart.getDatasetMeta(0);
-            if (!meta || !meta.data || !meta.data.length) return;
-
-            const centerX = meta.data[0].x;
-            const centerY = meta.data[0].y;
-
-            const total = '@ViewBag.Total';
-
-            ctx.save();
-
-            ctx.textAlign = "center";
-            ctx.textBaseline = "middle";
-
-            
-            ctx.font = "bold 30px Arial";
-            ctx.fillStyle = "#333";
-            ctx.fillText(total, centerX, centerY - 8);
-
-           
-            ctx.font = "14px Arial";
-            ctx.fillStyle = "#777";
-            ctx.fillText("Toplam Sipariş", centerX, centerY + 18);
-
-            ctx.restore();
-        }
-    };
+        };
 
         new Chart(ctx, {
             type: 'doughnut',
             data: {
                 labels: labels,
                 datasets: [{
-                    data: data,
-                    backgroundColor: colors.slice(0, data.length),
-                    borderColor: '#fff',
-                    borderWidth: 2
+                    data: values,
+                    backgroundColor: [
+                        '#39C4E3',
+                        '#BD1C0D',
+                        '#59DE5B',
+                        '#D9E339',
+                        '#FFB74D'
+                    ]
                 }]
             },
             options: {
-                cutout: '70%',
+                cutout: '65%',
+                responsive: true,
+                maintainAspectRatio: false,
                 plugins: {
                     legend: {
                         position: 'right'
@@ -92,5 +79,6 @@
             plugins: [centerTextPlugin]
         });
 
-    });
+    }
+
 </script>

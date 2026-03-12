@@ -1,0 +1,178 @@
+﻿@using ECommerce_BigDataAnalytics.Dtos.TableDto
+@model List<LowStockDto>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+    @@keyframes pulse-dot {
+        0%, 100% {
+            opacity: 1;
+        }
+
+        50% {
+            opacity: 0.3;
+        }
+    }
+    @@keyframes fade-up {
+        from {
+            opacity: 0;
+            transform: translateY(5px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .ls-card {
+        background: #eef2f7;
+        border: 1px solid #dde4ee;
+        border-radius: 14px;
+        overflow: hidden;
+        font-family: 'DM Sans', sans-serif;
+        box-shadow: 0 2px 16px rgba(100,120,160,0.1);
+        min-width: 300px;
+    }
+
+    .ls-header {
+        padding: 18px 20px 14px;
+        border-bottom: 1px solid #dde4ee;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .ls-icon {
+        width: 34px;
+        height: 34px;
+        background: #fde8e8;
+        border: 1px solid #f8c9c9;
+        border-radius: 9px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 15px;
+        flex-shrink: 0;
+    }
+
+    .ls-title {
+        font-size: 14px;
+        font-weight: 600;
+        color: #1e2d45;
+        letter-spacing: -0.2px;
+    }
+
+    .ls-subtitle {
+        font-size: 11px;
+        color: #8a96aa;
+        font-weight: 400;
+        margin-top: 1px;
+    }
+
+    .ls-count {
+        margin-left: auto;
+        background: #fde8e8;
+        border: 1px solid #f8c9c9;
+        border-radius: 20px;
+        padding: 3px 10px;
+        font-size: 11.5px;
+        font-weight: 600;
+        color: #d95f5f;
+    }
+
+    .ls-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 20px;
+        border-bottom: 1px solid #e4eaf3;
+        animation: fade-up 0.35s ease both;
+        transition: background 0.15s;
+    }
+
+        .ls-row:hover {
+            background: #e6ecf5;
+        }
+
+        .ls-row:last-child {
+            border-bottom: none;
+        }
+
+    .ls-dot {
+        width: 6px;
+        height: 6px;
+        background: #d95f5f;
+        border-radius: 50%;
+        margin-right: 10px;
+        flex-shrink: 0;
+        animation: pulse-dot 2.2s ease-in-out infinite;
+    }
+
+    .ls-name {
+        font-size: 13px;
+        color: #3a4a62;
+        font-weight: 400;
+    }
+
+    .ls-badge {
+        font-size: 11px;
+        font-weight: 600;
+        color: #d95f5f;
+        background: #fde8e8;
+        border: 1px solid #f8c9c9;
+        border-radius: 6px;
+        padding: 3px 9px;
+        white-space: nowrap;
+    }
+
+    .ls-footer {
+        padding: 10px 20px;
+        border-top: 1px solid #dde4ee;
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        color: #9aa5bb;
+        font-size: 11px;
+    }
+
+    .ls-live-dot {
+        width: 5px;
+        height: 5px;
+        background: #4ade80;
+        border-radius: 50%;
+        animation: pulse-dot 2.5s ease-in-out infinite;
+    }
+</style>
+
+<div class="ls-card">
+
+    <div class="ls-header">
+        <div class="ls-icon">⚠️</div>
+        <div>
+            <div class="ls-title">Düşük Stok Uyarısı</div>
+            <div class="ls-subtitle">Kritik seviyedeki ürünler</div>
+        </div>
+        <div class="ls-count">@Model.Count() ürün</div>
+    </div>
+
+    <div>
+        @foreach (var item in Model.Select((val, i) => new { val, i }))
+        {
+            <div class="ls-row" style="animation-delay: @(item.i * 0.05)s">
+                <div style="display:flex; align-items:center;">
+                    <span class="ls-dot"></span>
+                    <span class="ls-name">@item.val.ProductName</span>
+                </div>
+                <span class="ls-badge">@item.val.StockQuantity adet</span>
+            </div>
+        }
+    </div>
+
+    <div class="ls-footer">
+        <span class="ls-live-dot"></span>
+        Anlık güncelleniyor
+    </div>
+
+</div>

@@ -29,7 +29,7 @@ namespace ECommerce_BigDataAnalytics.Repositories.Line3Repositories
 
             ";
 
-            var result = await _db.QueryAsync<MonthlyTotalAmountDto>(query);
+            var result = await _db.QueryAsync<MonthlyTotalAmountDto>(query,commandTimeout:120);
             return result.ToList();
 
         }

@@ -17,12 +17,11 @@ namespace ECommerce_BigDataAnalytics.Repositories.DoughnutChart1Repositories
         FROM Orders r
         INNER JOIN OrderStatuses o 
             ON o.OrderStatusId = r.OrderStatusId
-        WHERE r.OrderDate >= DATEADD(DAY, -30, CAST(GETDATE() AS DATE))
         GROUP BY o.StatusName
         ORDER BY o.StatusName;
     ";
 
-            var result = await _db.QueryAsync<DoughnutChart1Dto>(query);
+            var result = await _db.QueryAsync<DoughnutChart1Dto>(query,commandTimeout:120);
             return result.ToList();
         }
 
@@ -39,7 +38,7 @@ namespace ECommerce_BigDataAnalytics.Repositories.DoughnutChart1Repositories
                 ORDER BY o.StatusName;
             ";
 
-            var result = await _db.QueryAsync<DoughnutChart1Dto>(query);
+            var result = await _db.QueryAsync<DoughnutChart1Dto>(query, commandTimeout: 120);
             return result.ToList();
         }
         
@@ -48,7 +47,7 @@ namespace ECommerce_BigDataAnalytics.Repositories.DoughnutChart1Repositories
         {
             var query = @" SELECT  COUNT(r.OrderId) FROM Orders r
             ";
-            var result = await _db.QueryAsync<int>(query);
+            var result = await _db.QueryAsync<int>(query, commandTimeout: 120);
             return result.FirstOrDefault();
         }
     }

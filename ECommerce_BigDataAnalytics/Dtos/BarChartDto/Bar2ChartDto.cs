@@ -3,7 +3,7 @@
     public class Bar2ChartDto
     {
         public string CategoryName { get; set; }
-        public int OrderCount { get; set; } = 0;
+        public int OrderCount { get; set; } 
 
     }
 }

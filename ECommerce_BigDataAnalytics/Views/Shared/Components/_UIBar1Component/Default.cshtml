@@ -2,7 +2,6 @@
     _UIBar1Component
 *@
 
-
 <div class="card">
     <h5 class="card-header">Aylık Sipariş Durumu & Süreci </h5>
     <div class="card-body" style="height:360px;">
@@ -11,34 +10,50 @@
 </div>
 
 <script>
-    const labels = @Html.Raw(Json.Serialize(ViewBag.Labels));
-    const datasets = @Html.Raw(Json.Serialize(ViewBag.Datasets));
 
-    const colors = [
-        '#39C4E3', // Beklemede
-        '#BD1C0D', // İptal Edildi
-        '#59DE5B', // Kargoya Verildi
-        '#D9E339', // Onaylandı
-        '#FFB74D'  // Teslim Edildi
-    ];
+    document.addEventListener("DOMContentLoaded", function () {
 
-    new Chart(document.getElementById("stackedBarChart"), {
-        type: 'bar',
-        data: {
-            labels: labels,
-            datasets: datasets.map((d, index) => ({
-                label: d.label,
-                data: d.data,
-                backgroundColor: colors[index], 
-                borderRadius: 4
-            }))
-        },
-        options: {
-            responsive: true,
-            scales: {
-                x: { stacked: true },
-                y: { stacked: true, beginAtZero: true }
+        const labels = @Html.Raw(Json.Serialize(ViewBag.Labels));
+        const datasets = @Html.Raw(Json.Serialize(ViewBag.Datasets));
+
+        const colors = [
+            '#39C4E3', // Beklemede
+            '#BD1C0D', // İptal Edildi
+            '#59DE5B', // Kargoya Verildi
+            '#D9E339', // Onaylandı
+            '#FFB74D'  // Teslim Edildi
+        ];
+
+        const ctx = document.getElementById("stackedBarChart");
+
+        if (!ctx) return;
+
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: datasets.map((d, index) => ({
+                    label: d.label,
+                    data: d.data,
+                    backgroundColor: colors[index],
+                    borderRadius: 4
+                }))
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: { stacked: true },
+                    y: { stacked: true, beginAtZero: true }
+                },
+                plugins: {
+                    legend: {
+                        position: 'top'
+                    }
+                }
             }
-        }
+        });
+
     });
+
 </script>

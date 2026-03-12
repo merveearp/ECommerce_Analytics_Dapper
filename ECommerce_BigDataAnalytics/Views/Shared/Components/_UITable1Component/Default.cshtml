@@ -1,55 +1,124 @@
 ﻿@model List<DoughnutChart1Dto>
 
-<div class="table-responsive mt-3">
-    <table class="table table-sm align-middle text-center">
-        <thead class="bg-light">
-            <tr>
-                <th class="text-start">
-                    <i class="bi bi-clipboard-data me-1 text-primary"></i>
-                    Sipariş Durumu
-                </th>
-                <th>
-                    <i class="bi bi-box-seam me-1 text-success"></i>
-                    Adet
-                </th>
-                <th>
-                    <i class="bi bi-percent me-1 text-warning"></i>
-                    Oran
-                </th>
-            </tr>
-        </thead>
-        <tbody>
+@{
+    var colors = new List<string>
+    {
+        "#39C4E3", // Beklemede
+        "#BD1C0D", // İptal
+        "#59DE5B", // Kargoya Verildi
+        "#D9E339", // Onaylandı
+        "#FFB74D"  // Teslim
+    };
 
-            @foreach (var item in Model)
-            {
-                var percentage = ViewBag.Total > 0
-                ? ((double)item.OrderCount / ViewBag.Total * 100).ToString("0.0")
-                : "0";
+    var icons = new List<string>
+    {
+        "bi-hourglass-split",
+        "bi-x-circle",
+        "bi-truck",
+        "bi-check-circle",
+        "bi-box-seam"
+    };
+}
 
-                <tr class="table-row-hover">
-                    <td class="text-start fw-semibold">
-                        <i class="bi bi-circle-fill text-secondary me-2"
-                           style="font-size:8px;"></i>
-                        @item.StatusName
-                    </td>
-                    <td class="fw-bold text-dark">
-                        @item.OrderCount.ToString("N0")
-                    </td>
-                    <td class="text-muted">
-                        @percentage %
-                    </td>
+<div class="card shadow-sm border-0 mt-3">
+    <div class="card-body">
+
+        <table class="table align-middle mb-0">
+
+            <thead class="small text-muted border-bottom">
+                <tr>
+                    <th class="text-start">
+                        <i class="bi bi-clipboard-data me-1 text-primary"></i>
+                        Sipariş Durumu
+                    </th>
+
+                    <th class="text-center">
+                        <i class="bi bi-box-seam me-1 text-success"></i>
+                        Adet
+                    </th>
+
+                    <th style="width:45%">
+                        <i class="bi bi-percent me-1 text-warning"></i>
+                        Oran
+                    </th>
                 </tr>
-            }
+            </thead>
 
-            <tr class="fw-bold border-top">
-                <td class="text-start">
-                    <i class="bi bi-calculator me-1 text-dark"></i>
-                    Toplam
-                </td>
-                <td>@ViewBag.Total.ToString("N0")</td>
-                <td>100 %</td>
-            </tr>
+            <tbody>
 
-        </tbody>
-    </table>
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    var item = Model[i];
+
+                    var percentage = ViewBag.Total > 0
+                    ? ((double)item.OrderCount / ViewBag.Total * 100)
+                    : 0;
+
+                    var color = colors[i];
+                    var icon = icons[i];
+
+                    <tr>
+
+                        <td class="fw-semibold">
+
+                            <i class="bi @icon me-2" style="color:@color;"></i>
+
+                            <span class="badge bg-light text-dark">
+                                @item.StatusName
+                            </span>
+
+                        </td>
+
+                        <td class="text-center fw-bold">
+                            @item.OrderCount.ToString("N0")
+                        </td>
+
+                        <td>
+
+                            <div class="d-flex align-items-center gap-2">
+
+                                <div class="progress flex-grow-1"
+                                     style="height:8px;background:#f1f3f5;">
+
+                                    <div class="progress-bar"
+                                         style="width:@percentage%; background:@color;">
+                                    </div>
+
+                                </div>
+
+                                <div style="width:55px"
+                                     class="text-end small fw-semibold">
+
+                                    @percentage.ToString("0.0") %
+
+                                </div>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+                }
+
+                <tr class="fw-bold border-top">
+
+                    <td>
+                        <i class="bi bi-calculator me-1"></i>
+                        Toplam
+                    </td>
+
+                    <td class="text-center">
+                        @ViewBag.Total.ToString("N0")
+                    </td>
+
+                    <td class="text-end text-success">
+                        100 %
+                    </td>
+
+                </tr>
+
+            </tbody>
+        </table>
+
+    </div>
 </div>
