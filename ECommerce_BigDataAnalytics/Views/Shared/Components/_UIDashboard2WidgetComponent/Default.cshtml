@@ -1,0 +1,250 @@
+﻿@*
+    _UIDashboard2WidgetComponent
+*@
+
+<style>
+    @@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap');
+
+    .kpi-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 14px;
+        padding: 8px 0;
+        font-family: 'DM Sans', sans-serif;
+    }
+
+    @@media (max-width: 900px) {
+        .kpi-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+    }
+
+    @@media (max-width: 520px) {
+        .kpi-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    .kpi-card {
+        background: #ffffff;
+        border: 0.5px solid rgba(0,0,0,0.1);
+        border-radius: 12px;
+        padding: 1.1rem 1.1rem 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        position: relative;
+        overflow: hidden;
+        transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+        .kpi-card:hover {
+            border-color: rgba(0,0,0,0.18);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+        }
+
+    .kpi-accent {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        border-radius: 12px 12px 0 0;
+    }
+
+    .kpi-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+    }
+
+    .kpi-label {
+        font-size: 11px;
+        font-weight: 500;
+        letter-spacing: 0.07em;
+        text-transform: uppercase;
+        color: #9ca3af;
+        margin: 0 0 6px;
+    }
+
+    .kpi-value {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 22px;
+        font-weight: 700;
+        line-height: 1.1;
+        color: #111827;
+        margin: 0 0 4px;
+    }
+
+    .kpi-sub {
+        font-size: 12px;
+        color: #6b7280;
+        margin: 0;
+    }
+
+    .kpi-icon-wrap {
+        width: 38px;
+        height: 38px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+
+        .kpi-icon-wrap svg {
+            width: 18px;
+            height: 18px;
+        }
+
+    .kpi-divider {
+        height: 0.5px;
+        background: rgba(0,0,0,0.08);
+        margin: 0;
+    }
+
+    .kpi-bottom {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .kpi-trend {
+        font-size: 11px;
+        font-weight: 500;
+        padding: 2px 8px;
+        border-radius: 20px;
+    }
+
+    .trend-up {
+        background: #EAF3DE;
+        color: #3B6D11;
+    }
+
+    .trend-neutral {
+        background: #E6F1FB;
+        color: #185FA5;
+    }
+
+    .kpi-trend-label {
+        font-size: 11px;
+        color: #9ca3af;
+    }
+
+    /* Accent bar renkleri */
+    .accent-green { background: #639922; }
+    .accent-blue  { background: #378ADD; }
+    .accent-amber { background: #BA7517; }
+    .accent-coral { background: #C21D1D; }
+
+    /* İkon arka plan renkleri */
+    .icon-bg-green  { background: #EAF3DE; }
+    .icon-bg-blue   { background: #E6F1FB; }
+    .icon-bg-amber  { background: #FAEEDA; }
+    .icon-bg-coral  { background: #FAECE7; }
+
+    /* İkon renkleri */
+    .icon-green { color: #3B6D11; }
+    .icon-blue  { color: #185FA5; }
+    .icon-amber { color: #854F0B; }
+    .icon-coral { color: #C21D1D; }
+</style>
+
+<div class="kpi-grid">
+
+    <!-- En Güçlü Ülke -->
+
+    <div class="kpi-card">
+        <div class="kpi-accent accent-green"></div>
+        <div class="kpi-top">
+            <div>
+                <p class="kpi-label">En Güçlü Ülke</p>
+                <p class="kpi-value">@ViewBag.TopCountryName</p>
+                <p class="kpi-sub">$ @ViewBag.TopCountryRevenue gelir</p>
+            </div>
+            <div class="kpi-icon-wrap icon-bg-green">
+                <svg class="icon-green" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10" />
+                    <line x1="2" y1="12" x2="22" y2="12" />
+                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                </svg>
+            </div>
+        </div>
+        <div class="kpi-divider"></div>
+        <div class="kpi-bottom">
+            <span class="kpi-trend trend-up">↑ #1 sıra</span>
+            <span class="kpi-trend-label">Ciro liderliği</span>
+        </div>
+    </div>
+
+    <!-- Toplam Ülke -->
+    <div class="kpi-card">
+        <div class="kpi-accent accent-blue"></div>
+        <div class="kpi-top">
+            <div>
+                <p class="kpi-label">Toplam Ülke</p>
+                <p class="kpi-value">@ViewBag.CountCountry</p>
+                <p class="kpi-sub">Aktif satış pazarı</p>
+            </div>
+            <div class="kpi-icon-wrap icon-bg-blue">
+                <svg class="icon-blue" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z" />
+                    <line x1="4" y1="22" x2="4" y2="15" />
+                </svg>
+            </div>
+        </div>
+        <div class="kpi-divider"></div>
+        <div class="kpi-bottom">
+            <span class="kpi-trend trend-neutral">@ViewBag.CountCountry pazar</span>
+            <span class="kpi-trend-label">Global kapsam</span>
+        </div>
+    </div>
+
+    <!-- Toplam Şehir -->
+    <div class="kpi-card">
+        <div class="kpi-accent accent-amber"></div>
+        <div class="kpi-top">
+            <div>
+                <p class="kpi-label">Toplam Şehir</p>
+                <p class="kpi-value">@ViewBag.CountCity</p>
+                <p class="kpi-sub">Satış noktası şehri</p>
+            </div>
+            <div class="kpi-icon-wrap icon-bg-amber">
+                <svg class="icon-amber" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                    <circle cx="12" cy="10" r="3" />
+                </svg>
+            </div>
+        </div>
+        <div class="kpi-divider"></div>
+        <div class="kpi-bottom">
+            <span class="kpi-trend trend-neutral">@ViewBag.CountCity şehir</span>
+            <span class="kpi-trend-label">Coğrafi erişim</span>
+        </div>
+    </div>
+
+    <!-- En Çok Sipariş Gelen Ülke -->
+    <div class="kpi-card">
+        <div class="kpi-accent accent-coral"></div>
+        <div class="kpi-top">
+            <div>
+                <p class="kpi-label">En Çok Sipariş</p>
+                <p class="kpi-value">@ViewBag.TopOrderCountryName</p>
+                <p class="kpi-sub">@ViewBag.TopOrderCount sipariş</p>
+            </div>
+            <div class="kpi-icon-wrap icon-bg-coral">
+                <svg class="icon-coral" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="9" cy="21" r="1" />
+                    <circle cx="20" cy="21" r="1" />
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+                </svg>
+            </div>
+        </div>
+        <div class="kpi-divider"></div>
+        <div class="kpi-bottom">
+            <span class="kpi-trend trend-up">↑ lider</span>
+            <span class="kpi-trend-label">Sipariş hacmi</span>
+        </div>
+    </div>
+
+</div>

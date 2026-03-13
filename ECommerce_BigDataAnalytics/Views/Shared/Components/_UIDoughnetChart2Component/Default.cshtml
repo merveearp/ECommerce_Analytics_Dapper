@@ -1,0 +1,69 @@
+﻿@model List<DoughnutChart2Dto>
+
+<div class="card h-100">
+    <h5 class="card-header">Kategori Bazlı Stok Dağılımı</h5>
+
+    <div class="card-body d-flex justify-content-center align-items-center">
+        <canvas id="doughnetchart" style="max-height:350px;"></canvas>
+    </div>
+</div>
+
+@using System.Text.Json
+<script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const data = @Html.Raw(JsonSerializer.Serialize(Model));
+
+        const labels = data.map(x => x.CategoryName);
+        const values = data.map(x => x.TotalStock);
+
+        const ctx = document.getElementById('doughnetchart');
+
+        if (!ctx) return;
+
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: labels,
+                datasets: [{
+                    data: values,
+                    hoverOffset: 8,
+                    backgroundColor: [
+                        "#1E3A8A",
+                        "#1E40AF",
+                        "#1D4ED8",
+                        "#2563EB",
+                        "#3B82F6",
+                        "#60A5FA",
+                        "#93C5FD",
+                        "#BFDBFE",
+                        "#DBEAFE",
+                        "#EFF6FF",
+                        "#2563EB",
+                        "#1D4ED8",
+                        "#3B82F6",
+                        "#60A5FA"
+                    ],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                cutout: '60%',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            boxWidth: 12,
+                            padding: 15
+                        }
+                    }
+                }
+            }
+        });
+
+    });
+
+</script>

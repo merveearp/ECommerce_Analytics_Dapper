@@ -1,0 +1,106 @@
+﻿@{
+    ViewData["Title"] = "Dashboard2";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="dashboard-ecommerce">
+    <div class="container-fluid dashboard-content">
+
+        <div class="row mb-3">
+            <div class="col-12">
+                <h4 class="mb-1 fw-bold">🌍 Ülke Bazlı Satış Analizi</h4>
+                <p class="text-muted mb-0">
+                    E-ticaret platformunda satış yapılan ülkeler hakkında genel bir özet sunulmaktadır.
+                    Aşağıdaki kartlar, en yüksek ciroya sahip ülkeyi, toplam ülke ve şehir sayısını
+                    ve en fazla siparişin geldiği ülkeyi göstermektedir.
+                </p>
+            </div>
+        </div>
+
+
+            @await Component.InvokeAsync("_UIDashboard2WidgetComponent")
+            <br />
+
+      
+
+
+        <div class="row g-4">
+
+            <div class="col-12">
+                @await Component.InvokeAsync("_UIDashboard2CityMapComponent")
+            </div>
+
+        </div>
+
+        <div class="row g-4">
+
+            <div class="col-12">
+
+                <div class="card shadow-sm border-0">
+
+                    <div class="card-header bg-white border-0">
+
+                        <h5 class="mb-0 fw-semibold text-primary">
+                            🌍 Ülke ve Şehir Bazlı Müşteri Yoğunluğu
+                        </h5>
+
+                    </div>
+
+                    <div class="card-body">
+
+                        @await Component.InvokeAsync("_UIDashboard2City2MapComponent")
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+              
+        <div class="row g-4">
+
+
+            <div class="col-xl-9 col-lg-5 col-md-12">
+
+                @await Component.InvokeAsync("_UIDashboard2CountryMapComponent")
+
+
+            </div>
+
+            <div class="col-xl-3 col-lg-7 col-md-12">
+
+
+                @await Component.InvokeAsync("_UIDashboard2CountryTableComponent")
+
+
+            </div>
+
+        </div>
+
+        <br />
+        <br />
+
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -32,7 +32,7 @@ namespace ECommerce_BigDataAnalytics.Repositories.Bar1Repositories
             MonthNumber;
     ";
 
-            var result = await _db.QueryAsync<Bar1ChartDto>(query);
+            var result = await _db.QueryAsync<Bar1ChartDto>(query,commandTimeout:120);
             return result.ToList();
         }
     }

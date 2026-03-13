@@ -2,7 +2,10 @@
 
 using ECommerce_BigDataAnalytics.Repositories.Bar1Repositories;
 using ECommerce_BigDataAnalytics.Repositories.Bar2Repositories;
+using ECommerce_BigDataAnalytics.Repositories.Bar4Repositories;
+using ECommerce_BigDataAnalytics.Repositories.CountryWidgetRepositories;
 using ECommerce_BigDataAnalytics.Repositories.DoughnutChart1Repositories;
+using ECommerce_BigDataAnalytics.Repositories.DoughnutChart2Repositories;
 using ECommerce_BigDataAnalytics.Repositories.Line1Repositories;
 using ECommerce_BigDataAnalytics.Repositories.Line2Repositories;
 using ECommerce_BigDataAnalytics.Repositories.Line3Repositories;
@@ -29,8 +32,11 @@ namespace ECommerce_BigDataAnalytics.Extensions
             services.AddScoped<ILine3Repository, Line3Repository>();
             services.AddScoped<IBar1Repository, Bar1Repository>();
             services.AddScoped<IBar2Repository, Bar2Repository>();
+            services.AddScoped<IBar4Repository, Bar4Repository>();
             services.AddScoped<ITableRepository, TableRepository>();
             services.AddScoped<IProfitRepository, ProfitRepository>();
+            services.AddScoped<IDoughnut2Repository, Doughnut2Repository>();
+            services.AddScoped<ICountyWidgetRepository, CountyWidgetRepository>();
 
 
         }

@@ -5,86 +5,188 @@
     
 *@
 
-
-
 <style>
-    .payment-card {
-        border: none;
-        border-radius: 14px;
-        box-shadow: 0 8px 24px rgba(0,0,0,0.06);
-        transition: all 0.25s ease;
+    @@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap');
+
+    .pay-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 14px;
+        padding: 8px 0;
+        font-family: 'DM Sans', sans-serif;
     }
 
-        .payment-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+    @@media (max-width: 900px) {
+        .pay-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @@media (max-width: 520px) {
+        .pay-grid { grid-template-columns: 1fr; }
+    }
+
+    .pay-card {
+        border: none;
+        border-radius: 12px;
+        padding: 1.1rem 1.1rem 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        position: relative;
+        overflow: hidden;
+        transition: box-shadow 0.2s, transform 0.2s;
+    }
+
+        .pay-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.10);
         }
 
-    .icon-box {
-        width: 56px;
-        height: 56px;
-        border-radius: 12px;
+    .pay-card.card-blue   { background: #E6F1FB; }
+    .pay-card.card-green  { background: #EAF3DE; }
+    .pay-card.card-amber  { background: #FAEEDA; }
+    .pay-card.card-purple { background: #EEEDFE; }
+
+    .pay-accent { position: absolute; top: 0; left: 0; right: 0; height: 3px; border-radius: 12px 12px 0 0; }
+    .accent-blue   { background: #378ADD; }
+    .accent-green  { background: #639922; }
+    .accent-amber  { background: #BA7517; }
+    .accent-purple { background: #7F77DD; }
+
+    .pay-top { display: flex; justify-content: space-between; align-items: flex-start; }
+
+    .pay-label {
+        font-size: 11px;
+        font-weight: 500;
+        letter-spacing: 0.07em;
+        text-transform: uppercase;
+        margin: 0 0 6px;
+    }
+
+    .card-blue   .pay-label { color: #185FA5; }
+    .card-green  .pay-label { color: #3B6D11; }
+    .card-amber  .pay-label { color: #854F0B; }
+    .card-purple .pay-label { color: #534AB7; }
+
+    .pay-value {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 22px;
+        font-weight: 700;
+        line-height: 1.1;
+        margin: 0 0 4px;
+    }
+
+    .card-blue   .pay-value { color: #0C447C; }
+    .card-green  .pay-value { color: #27500A; }
+    .card-amber  .pay-value { color: #633806; }
+    .card-purple .pay-value { color: #3C3489; }
+
+    .pay-sub { font-size: 12px; margin: 0; }
+    .card-blue   .pay-sub { color: #185FA5; }
+    .card-green  .pay-sub { color: #3B6D11; }
+    .card-amber  .pay-sub { color: #854F0B; }
+    .card-purple .pay-sub { color: #534AB7; }
+
+    .pay-icon {
+        width: 38px;
+        height: 38px;
+        border-radius: 10px;
         display: flex;
         align-items: center;
         justify-content: center;
-        color: #fff;
-        font-size: 22px;
+        flex-shrink: 0;
     }
 
-        .icon-box.blue {
-            background: linear-gradient(135deg, #3b82f6, #60a5fa);
-        }
+        .pay-icon svg { width: 18px; height: 18px; }
 
-        .icon-box.green {
-            background: linear-gradient(135deg, #10b981, #34d399);
-        }
+    .card-blue   .pay-icon { background: rgba(55,138,221,0.15); color: #185FA5; }
+    .card-green  .pay-icon { background: rgba(99,153,34,0.15);  color: #3B6D11; }
+    .card-amber  .pay-icon { background: rgba(186,117,23,0.15); color: #854F0B; }
+    .card-purple .pay-icon { background: rgba(127,119,221,0.15);color: #534AB7; }
 
-        .icon-box.orange {
-            background: linear-gradient(135deg, #f59e0b, #fbbf24);
-        }
+    .pay-divider { height: 0.5px; }
+    .card-blue   .pay-divider { background: rgba(55,138,221,0.2); }
+    .card-green  .pay-divider { background: rgba(99,153,34,0.2); }
+    .card-amber  .pay-divider { background: rgba(186,117,23,0.2); }
+    .card-purple .pay-divider { background: rgba(127,119,221,0.2); }
 
-        .icon-box.purple {
-            background: linear-gradient(135deg, #ef5766, #a78bfa);
-        }
+    .pay-bottom { display: flex; align-items: center; gap: 6px; }
 
+    .pay-badge {
+        font-size: 11px;
+        font-weight: 500;
+        padding: 2px 8px;
+        border-radius: 20px;
+    }
 
+    .card-blue   .pay-badge { background: rgba(55,138,221,0.18);  color: #185FA5; }
+    .card-green  .pay-badge { background: rgba(99,153,34,0.18);   color: #3B6D11; }
+    .card-amber  .pay-badge { background: rgba(186,117,23,0.18);  color: #854F0B; }
+    .card-purple .pay-badge { background: rgba(127,119,221,0.18); color: #534AB7; }
 
+    .pay-badge-label { font-size: 11px; }
+    .card-blue   .pay-badge-label { color: #378ADD; }
+    .card-green  .pay-badge-label { color: #639922; }
+    .card-amber  .pay-badge-label { color: #BA7517; }
+    .card-purple .pay-badge-label { color: #7F77DD; }
 </style>
 
-   @foreach (var item in Model)
+<div class="pay-grid">
+
+    @foreach (var item in Model)
     {
-        
+        var name = item.PaymentTypeName.ToLower();
 
-    var name = item.PaymentTypeName.ToLower();
+        string colorClass = name.Contains("kredi") ? "blue" :
+                            name.Contains("banka") ? "green" :
+                            name.Contains("nakit") ? "amber" :
+                            name.Contains("havale") || name.Contains("eft") ? "purple" :
+                            "blue";
 
-    string colorClass =
-        name.Contains("kredi") ? "blue" :
-        name.Contains("banka") ? "green" :
-        name.Contains("nakit") ? "orange" :
-        name.Contains("havale") || name.Contains("eft") ? "purple" :
-        "blue";
+        string accentClass = $"accent-{colorClass}";
 
-
-
-
-        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12 mb-4">
-            <div class="card payment-card h-100">
-                <div class="card-body d-flex align-items-center">
-
-                <div class="icon-box @colorClass me-3">
-                    <i class="fas fa-money-bill-alt"></i>
+        <div class="pay-card card-@colorClass">
+            <div class="pay-accent @accentClass"></div>
+            <div class="pay-top">
+                <div>
+                    <p class="pay-label">@item.PaymentTypeName</p>
+                    <p class="pay-value">$ @item.TotalAmount.ToShortMoney()</p>
+                    <p class="pay-sub">Toplam tahsilat</p>
                 </div>
-
-
-                    <div>
-                        <h4 class="text-muted mb-1">@item.PaymentTypeName</h4>
-                        <h3 class="mb-1 fw-bold">
-                            $ @item.TotalAmount.ToShortMoney()
-                        </h3>
-                    </div>
-
+                <div class="pay-icon">
+                    @if (colorClass == "blue")
+                    {
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="1" y="4" width="22" height="16" rx="2" /><line x1="1" y1="10" x2="23" y2="10" />
+                        </svg>
+                    }
+                    else if (colorClass == "green")
+                    {
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="1" y="4" width="22" height="16" rx="2" /><line x1="1" y1="10" x2="23" y2="10" />
+                            <circle cx="7" cy="15" r="1" fill="currentColor" />
+                        </svg>
+                    }
+                    else if (colorClass == "amber")
+                    {
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="12" y1="1" x2="12" y2="23" /><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                        </svg>
+                    }
+                    else
+                    {
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="17 1 21 5 17 9" /><path d="M3 11V9a4 4 0 0 1 4-4h14" />
+                            <polyline points="7 23 3 19 7 15" /><path d="M21 13v2a4 4 0 0 1-4 4H3" />
+                        </svg>
+                    }
                 </div>
+            </div>
+            <div class="pay-divider"></div>
+            <div class="pay-bottom">
+                <span class="pay-badge">@item.PaymentTypeName</span>
+                <span class="pay-badge-label">Ödeme tipi</span>
             </div>
         </div>
     }
 
+</div>

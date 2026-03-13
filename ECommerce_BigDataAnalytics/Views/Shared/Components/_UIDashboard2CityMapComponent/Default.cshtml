@@ -1,0 +1,79 @@
+﻿@using ECommerce_BigDataAnalytics.Dtos.CountryDto
+@model List<CountryOfCityDto>
+
+<div class="card shadow-sm border-0">
+
+    <div class="card-header bg-white border-0">
+        <h5 class="mb-0 fw-semibold">
+            🌍 Şehir Bazlı Müşteri Yoğunluğu
+        </h5>
+    </div>
+
+    <div class="card-body">
+        <div id="customerCityMap" style="width:100%; height:350px;"></div>
+    </div>
+
+</div>
+
+
+
+<script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+    const cities = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.Select(x => x.CityName)));
+    const lat = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.Select(x => x.Latitude)));
+    const lon = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.Select(x => x.Longitude)));
+    const customers = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.Select(x => x.CustomerCount)));
+
+    console.log(cities);
+    console.log(lat);
+    console.log(lon);
+    console.log(customers);
+
+    var data = [{
+    type: "scattergeo",
+    mode: "markers",
+
+    text: cities.map((c,i)=> c + " - " + customers[i] + " müşteri"),
+
+    lat: lat,
+    lon: lon,
+
+    marker: {
+    size: customers.map(x => Math.max(x/100,8)),
+    color: customers,
+    colorscale: "Greens",
+    showscale: true,
+    colorbar: {
+            title: 'Müşteri Sayısı'
+        }
+    }
+    }];
+
+    var layout = {
+
+    margin:{t:0,b:0,l:0,r:0},
+
+    geo: {
+    scope:"world",
+
+    projection:{type:"natural earth"},
+
+    showland:true,
+    landcolor:"#f8f9fa",
+
+    showcountries:true,
+    countrycolor:"#dcdcdc",
+
+    showocean:true,
+    oceancolor:"#e9f2ff"
+    }
+
+    };
+
+    Plotly.newPlot("customerCityMap", data, layout);
+
+    });
+
+</script>

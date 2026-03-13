@@ -1,0 +1,92 @@
+﻿@using ECommerce_BigDataAnalytics.Dtos.CountryDto
+@model List<CountryCustomerDto>
+
+@*
+    _UIDashboard2CountryTableComponent
+*@
+
+<style>
+
+    .progress-sm {
+        height: 6px;
+        border-radius: 10px;
+        background: #eef1f5;
+    }
+
+        .progress-sm .progress-bar {
+            border-radius: 10px;
+            transition: 0.4s;
+        }
+
+    .country-item {
+        padding: 6px 0;
+    }
+
+        .country-item:hover {
+            transform: translateX(4px);
+            transition: .2s;
+        }
+
+    .country-flag {
+        width: 22px;
+        height: 16px;
+        object-fit: cover;
+        border-radius: 3px;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    }
+
+    .country-percent {
+        font-size: 13px;
+        font-weight: 600;
+        color: #0d6efd;
+    }
+
+</style>
+
+<div class="card shadow-sm border-0 h-100">
+
+    <div class="card-header bg-white border-0">
+        <h5 class="mb-0 fw-semibold">
+            🌍 Ülkelere Göre Müşteri Dağılımı
+        </h5>
+    </div>
+
+    <div class="card-body">
+
+        @foreach (var item in Model)
+        {
+            <div class="country-item mb-3">
+
+                <div class="d-flex justify-content-between align-items-center mb-1">
+
+                    <div class="d-flex align-items-center">
+
+                        <img src="https://flagcdn.com/24x18/@(item.CountryCode).png"
+                             class="country-flag me-2" />
+
+                        <span class="fw-semibold text-dark">
+                            @item.CountryName
+                        </span>
+
+                    </div>
+
+                    <span class="country-percent">
+                        %@item.CustomerPercentage
+                    </span>
+
+                </div>
+
+                <div class="progress progress-sm">
+
+                    <div class="progress-bar bg-primary"
+                         style="width:@item.CustomerPercentage%">
+                    </div>
+
+                </div>
+
+            </div>
+        }
+
+    </div>
+
+</div>

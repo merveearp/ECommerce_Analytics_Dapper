@@ -1,0 +1,61 @@
+﻿@model List<Bar4ChartDto>
+@using System.Text.Json
+
+<div class="card h-100">
+    <h5 class="card-header">
+        Satışlara Göre Stok Analizi
+    </h5>
+
+    <div class="card-body">
+        <canvas id="stockSalesChart" height="220"></canvas>
+    </div>
+</div>
+
+
+<script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+    const data = @Html.Raw(JsonSerializer.Serialize(Model));
+
+    const labels = data.map(x => x.CategoryName);
+    const stock = data.map(x => x.CurrentStock);
+    const sold = data.map(x => x.TotalSold);
+
+    const ctx = document.getElementById("stockSalesChart");
+
+    new Chart(ctx, {
+    type: "bar",
+    data: {
+    labels: labels,
+    datasets: [
+    {
+    label: "Mevcut Stok",
+    data: stock,
+    backgroundColor: "#60A5FA"
+    },
+    {
+    label: "Toplam Satış",
+    data: sold,
+    backgroundColor: "#1D4ED8"
+    }
+    ]
+    },
+    options: {
+    responsive: true,
+    plugins: {
+    legend: {
+    position: "top"
+    }
+    },
+    scales: {
+    y: {
+    beginAtZero: true
+    }
+    }
+    }
+    });
+
+    });
+
+</script>

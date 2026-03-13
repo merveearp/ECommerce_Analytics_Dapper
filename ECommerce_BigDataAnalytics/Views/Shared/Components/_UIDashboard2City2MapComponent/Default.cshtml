@@ -1,0 +1,124 @@
+﻿@using ECommerce_BigDataAnalytics.Dtos.CountryDto
+@model List<CountryOfCityDto>
+
+<style>
+
+    .country-card {
+        border-radius: 10px;
+    }
+
+    .city-row {
+        font-size: 13px;
+    }
+
+    .city-progress {
+        height: 6px;
+        background: #eef1f5;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .city-progress-bar {
+        height: 100%;
+        background: #087E99;
+    }
+
+    .flag-icon {
+        width: 20px;
+        height: 14px;
+        object-fit: cover;
+        border-radius: 2px;
+    }
+
+
+    .col-5-grid {
+        width: 20%;
+    }
+
+    @@media(max - width:1200px) {
+        .col-5-grid {
+            width: 25%;
+        }
+    }
+
+    @@media(max - width:992px) {
+        .col-5-grid {
+            width: 33.33%;
+        }
+    }
+
+    @@media(max - width:768px) {
+        .col-5-grid {
+            width: 50%;
+        }
+    }
+
+    @@media(max - width:576px) {
+        .col-5-grid {
+            width: 100%;
+        }
+    }
+
+</style>
+
+
+<div class="row g-3">
+
+    @foreach (var country in Model.GroupBy(x => new { x.CountryName, x.CountryCode }))
+    {
+
+        var maxCustomer = country.Max(x => x.CustomerCount);
+
+        <div class="col-5-grid">
+
+            <div class="card shadow-sm border-0 country-card h-100">
+
+                <div class="card-header small fw-semibold d-flex align-items-center gap-2">
+
+                    <img src="https://flagcdn.com/24x18/@(country.Key.CountryCode).png" class="flag-icon" />
+
+                    <span>@country.Key.CountryName</span>
+
+                </div>
+
+                <div class="card-body p-2">
+
+                    @foreach (var city in country.OrderByDescending(x => x.CustomerCount))
+                    {
+
+                        var percent = (city.CustomerCount * 100) / maxCustomer;
+
+                        <div class="city-row mb-2">
+
+                            <div class="d-flex justify-content-between">
+
+                                <span>@city.CityName</span>
+
+                                <span class="text-success fw-semibold">
+                                    @city.CustomerCount
+                                </span>
+
+                            </div>
+
+                            <div class="city-progress mt-1">
+
+                                <div class="city-progress-bar"
+                                     style="width:@percent%">
+                                </div>
+                                <span>Müşteri</span>
+
+                            </div>
+
+                        </div>
+
+                    }
+
+                </div>
+
+            </div>
+
+        </div>
+
+    }
+
+</div>
