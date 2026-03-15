@@ -1,25 +1,22 @@
 ﻿@using ECommerce_BigDataAnalytics.Dtos.CountryDto
 @model List<CountryCustomerDto>
 
-@*
-    _UIDashboard2CountryTableComponent
-*@
 
 <style>
 
     .progress-sm {
-        height: 6px;
+        height: 7px; 
         border-radius: 10px;
         background: #eef1f5;
     }
 
         .progress-sm .progress-bar {
             border-radius: 10px;
-            transition: 0.4s;
+            transition: .4s;
         }
 
     .country-item {
-        padding: 6px 0;
+        padding: 5px 0; 
     }
 
         .country-item:hover {
@@ -38,30 +35,41 @@
     .country-percent {
         font-size: 13px;
         font-weight: 600;
-        color: #0d6efd;
+        color: #0D3070;
+    }
+
+    .country-rank {
+        width: 22px;
+        text-align: center;
+        font-weight: 700;
+        color: #6c757d;
+        margin-right: 6px;
     }
 
 </style>
 
-<div class="card shadow-sm border-0 h-100">
+<div class="card shadow-sm border-0">
 
-    <div class="card-header bg-white border-0">
-        <h5 class="mb-0 fw-semibold">
+    <div class="card-header bg-white border-0 py-3">
+        <h6 class="mb-0 fw-semibold">
             🌍 Ülkelere Göre Müşteri Dağılımı
-        </h5>
+        </h6>
     </div>
 
-    <div class="card-body">
+    <div class="card-body py-3">
 
         @foreach (var item in Model)
         {
+          
+
             <div class="country-item mb-3">
 
                 <div class="d-flex justify-content-between align-items-center mb-1">
 
                     <div class="d-flex align-items-center">
 
-                        <img src="https://flagcdn.com/24x18/@(item.CountryCode).png"
+
+                        <img src="https://flagcdn.com/24x18/@(item.CountryCode.ToLower()).png"
                              class="country-flag me-2" />
 
                         <span class="fw-semibold text-dark">
@@ -79,7 +87,8 @@
                 <div class="progress progress-sm">
 
                     <div class="progress-bar bg-primary"
-                         style="width:@item.CustomerPercentage%">
+                         role="progressbar"
+                         style="width:@(item.CustomerPercentage.ToString().Replace(",", "."))%">
                     </div>
 
                 </div>

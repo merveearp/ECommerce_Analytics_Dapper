@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using ECommerce_BigDataAnalytics.Context;
+using ECommerce_BigDataAnalytics.Dtos.CountryDto;
 using ECommerce_BigDataAnalytics.Dtos.TableDto;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System.Data;
@@ -116,6 +117,30 @@ namespace ECommerce_BigDataAnalytics.Repositories.TableRepositories
                 ORDER BY StockRange";
             var result = await _db.QueryAsync<StockDistributionDto>(query, commandTimeout: 120);
 
+            return result.ToList();
+        }
+
+        public async Task<List<TopProductDetailDto>> GetTopSellingProductDetailsAsync()
+        {
+            var query = @"
+                SELECT TOP 10
+                    p.ProductName,
+                    c.CategoryName,
+                    p.Price,
+                    SUM(od.Quantity) AS TotalSold,
+                    SUM(od.Quantity * p.Price) AS TotalRevenue
+                FROM OrderDetails od
+                INNER JOIN Products p 
+                    ON p.ProductId = od.ProductId
+                INNER JOIN Categories c 
+                    ON c.CategoryId = p.CategoryId
+                GROUP BY 
+                    p.ProductName,
+                    c.CategoryName,
+                    p.Price
+                ORDER BY TotalSold DESC";
+
+            var result = await _db.QueryAsync<TopProductDetailDto>(query,commandTimeout:120);
             return result.ToList();
         }
     }

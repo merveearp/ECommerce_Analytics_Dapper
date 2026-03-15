@@ -1,0 +1,80 @@
+﻿
+@*
+    _UIDashboard2AreaComponent
+*@
+
+
+<div class="card shadow-sm border-0 h-100">
+    
+    <div class="card-header bg-white">
+        <h5 class="mb-0 fw-semibold text-primary">
+            <i class="bi bi-graph-up-arrow me-2"></i>
+            Ülke Bazlı Ciro Dağılımı
+        </h5>
+    </div>
+
+    <div class="card-body">
+        <canvas id="countryRevenueChart" height="120"></canvas>
+    </div>
+
+</div>
+
+<script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const countries = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(ViewBag.CountryName));
+        const revenues = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(ViewBag.Revenue));
+
+        const ctx = document.getElementById("countryRevenueChart");
+
+        new Chart(ctx, {
+            type: "line",
+            data: {
+                labels: countries,
+                datasets: [{
+                    label: "Toplam Ciro ($)",
+                    data: revenues,
+                    fill: true,
+                    tension: 0.4,
+                    borderWidth: 3,
+
+                    borderColor: "#4e73df",
+
+                    backgroundColor: "rgba(78,115,223,0.20)",
+
+                    pointRadius: 5,
+                    pointBackgroundColor: "#4e73df",
+                    pointBorderColor: "#fff",
+                    pointHoverRadius: 7
+                }]
+            },
+
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: true
+                    }
+                },
+
+                scales: {
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    },
+
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            color: "rgba(0,0,0,0.05)"
+                        }
+                    }
+                }
+            }
+        });
+
+    });
+
+</script>

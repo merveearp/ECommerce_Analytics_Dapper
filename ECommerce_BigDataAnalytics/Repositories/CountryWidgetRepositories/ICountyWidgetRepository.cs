@@ -11,5 +11,6 @@ namespace ECommerce_BigDataAnalytics.Repositories.CountryWidgetRepositories
         Task<List<CustomerCountryMapDto>> GetOrderByCountryAsync();
         Task<List<CountryCustomerDto>> GetCountryCustomer();
         Task<List<CountryOfCityDto>> GetCityAsync();
+        Task<List<CountryAreaTotalAmountDto>> GetAmountOfCountry();
     }
 }

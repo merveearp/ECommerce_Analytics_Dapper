@@ -2,7 +2,7 @@
 {
     public class Bar3ChartDto
     {
-        public int CategoryName { get; set; }
+        public string CategoryName { get; set; }
         public decimal Revenue { get; set; }
     }
 }

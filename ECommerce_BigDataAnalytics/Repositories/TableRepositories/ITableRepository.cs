@@ -1,4 +1,5 @@
-﻿using ECommerce_BigDataAnalytics.Dtos.TableDto;
+﻿using ECommerce_BigDataAnalytics.Dtos.CountryDto;
+using ECommerce_BigDataAnalytics.Dtos.TableDto;
 
 namespace ECommerce_BigDataAnalytics.Repositories.TableRepositories
 {
@@ -9,5 +10,6 @@ namespace ECommerce_BigDataAnalytics.Repositories.TableRepositories
         Task<List<LowStockDto>> GetLowStockAsync();
         Task<List<TopProductsDto>> GetLowProductAsync();
         Task<List<HighTopProductDto>> GetHighProductAsync();
+        Task<List<TopProductDetailDto>> GetTopSellingProductDetailsAsync();
     }
 }

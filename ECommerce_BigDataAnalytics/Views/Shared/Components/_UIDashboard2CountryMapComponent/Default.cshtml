@@ -2,23 +2,7 @@
 @model List<CustomerCountryMapDto>
 
 <div class="row">
-
-    <div class="col-lg-7">
-
-        <div class="card shadow-sm border-0">
-
-            <h5 class="card-header">
-                🌍 Global Sipariş Dağılımı
-            </h5>
-
-            <div class="card-body">
-                <div id="worldMap" style="height:500px;"></div>
-            </div>
-
-        </div>
-
-    </div>
-
+    
     <div class="col-lg-5">
 
         <div class="card shadow-sm border-0 h-100">
@@ -43,6 +27,10 @@
                         @foreach (var item in Model)
                         {
                             <tr>
+                                <td>
+                                    <img src="https://flagcdn.com/24x18/@(item.CountryCode).png"
+                                         class="country-flag me-2" />
+                                </td>
                                 <td>@item.CountryName</td>
 
                                 <td class="text-end fw-semibold text-success">
@@ -60,6 +48,23 @@
         </div>
 
     </div>
+
+    <div class="col-lg-7">
+
+        <div class="card shadow-sm border-0">
+
+            <h5 class="card-header">
+                🌍 Global Sipariş Dağılımı
+            </h5>
+
+            <div class="card-body">
+                <div id="worldMap" style="height:500px;"></div>
+            </div>
+
+        </div>
+
+    </div>
+
 
 </div>
 
@@ -104,13 +109,148 @@
     [1,'#0d47a1']
     ],
 
+    colorbar: {
+    title: "Sipariş Sayısı"
+    },
+
     marker: {
     line: {
     color: "white",
     width: 0.6
     }
     }
+    }];
 
+    var layout = {
+
+    geo: {
+    scope: "world",
+    projection: { type: "natural earth" },
+    showland: true,
+    landcolor: "#e4e4e4"
+    },
+
+    margin: { t:0, l:0, r:0, b:0 }
+
+    };
+
+    Plotly.newPlot("worldMap", data, layout);
+
+    });
+    document.addEventListener("DOMContentLoaded", function () {
+
+    const rawCountries = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.Select(x => x.CountryCode)));
+    const orders = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.Select(x => x.OrderCount)));
+    const names = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.Select(x => x.CountryName)));
+
+    const iso3Map = {
+    "TR":"TUR",
+    "DE":"DEU",
+    "FR":"FRA",
+    "GB":"GBR",
+    "IT":"ITA",
+    "ES":"ESP",
+    "NL":"NLD",
+    "US":"USA",
+    "CA":"CAN",
+    "AU":"AUS"
+    };
+
+    const countries = rawCountries.map(c => iso3Map[c.toUpperCase()]);
+
+    var data = [{
+    type: "choropleth",
+
+    locations: countries,
+    z: orders,
+
+    text: names,
+
+    hovertemplate:
+    "<b>%{text}</b><br>" +
+    "Sipariş Sayısı: %{z}<extra></extra>",
+
+    colorscale: [
+    [0,'#cfe2ff'],
+    [1,'#0d47a1']
+    ],
+
+    colorbar: {
+    title: "Sipariş Sayısı"
+    },
+
+    marker: {
+    line: {
+    color: "white",
+    width: 0.6
+    }
+    }
+    }];
+
+    var layout = {
+
+    geo: {
+    scope: "world",
+    projection: { type: "natural earth" },
+    showland: true,
+    landcolor: "#e4e4e4"
+    },
+
+    margin: { t:0, l:0, r:0, b:0 }
+
+    };
+
+    Plotly.newPlot("worldMap", data, layout);
+
+    });
+    document.addEventListener("DOMContentLoaded", function () {
+
+    const rawCountries = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.Select(x => x.CountryCode)));
+    const orders = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.Select(x => x.OrderCount)));
+    const names = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.Select(x => x.CountryName)));
+
+    const iso3Map = {
+    "TR":"TUR",
+    "DE":"DEU",
+    "FR":"FRA",
+    "GB":"GBR",
+    "IT":"ITA",
+    "ES":"ESP",
+    "NL":"NLD",
+    "US":"USA",
+    "CA":"CAN",
+    "AU":"AUS"
+    };
+
+    const countries = rawCountries.map(c => iso3Map[c.toUpperCase()]);
+
+    var data = [{
+    type: "choropleth",
+
+    locations: countries,
+    z: orders,
+
+    text: names,
+
+    hovertemplate:
+    "<b>%{text}</b><br>" +
+    "Sipariş Sayısı: %{z}<extra></extra>",
+
+    colorscale: [
+    [0,'#cfe2ff'],
+    [1,'#0d47a1']
+    ],
+
+    colorbar: {
+    title: "Sipariş Sayısı"
+    },
+
+    marker: {
+    line: {
+    color: "white",
+    width: 0.6
+    }
+    }
     }];
 
     var layout = {

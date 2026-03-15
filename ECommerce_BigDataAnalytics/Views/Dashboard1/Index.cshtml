@@ -78,6 +78,28 @@
 
         </div>
 
+        <br />
+
+        <div class="row g-4">
+
+
+            <div class="col-xl-6 col-lg-5 col-md-12">
+
+                @await Component.InvokeAsync("_UIDashboard1Table4Component")
+                @await Component.InvokeAsync("_UIDashboard1Line4Component")
+
+            </div> 
+
+            <div class="col-xl-6 col-lg-7 col-md-12">
+
+              
+                @await Component.InvokeAsync("_UIDashboard1Bar3Component")
+
+
+            </div>
+
+        </div>
+
 
     </div>
 </div>

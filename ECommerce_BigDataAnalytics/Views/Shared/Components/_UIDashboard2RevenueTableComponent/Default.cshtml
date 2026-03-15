@@ -1,0 +1,56 @@
+﻿@using ECommerce_BigDataAnalytics.Dtos.CountryDto
+@model List<CountryAreaTotalAmountDto>
+
+
+<div class="card shadow-sm border-0 h-100">
+
+    <div class="card-header bg-white border-0">
+        <h5 class="mb-0 fw-semibold text-primary">
+            <i class="bi bi-table me-2"></i>
+            Ülkelere Göre Ciro
+        </h5>
+    </div>
+
+    <div class="card-body p-0">
+
+        <table class="table table-hover align-middle mb-0">
+
+            <thead class="small text-muted border-bottom">
+                <tr>
+                    <th>Ülke</th>
+                    <th class="text-end">Ciro ($)</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                @{
+                    int count = 1;
+                }
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+
+                        <td>
+                            <span class="fw-semibold">
+                                @count. @item.CountryName
+                            </span>
+                        </td>
+
+                        <td class="text-end fw-semibold text-success">
+                            $ @item.TotalAmount.ToString("N0")
+                        </td>
+
+                    </tr>
+
+                    count++;
+                }
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>

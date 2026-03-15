@@ -9,6 +9,27 @@ namespace ECommerce_BigDataAnalytics.Repositories.CountryWidgetRepositories
     {
         private readonly IDbConnection _db = context.CreateConnection();
 
+        public async Task<List<CountryAreaTotalAmountDto>> GetAmountOfCountry()
+        {
+            var query = @"
+                      SELECT 
+                    co.CountryName,
+                    SUM(o.TotalAmount) AS TotalAmount
+                FROM Orders o
+                INNER JOIN Customers cu 
+                    ON cu.CustomerId = o.CustomerId
+                INNER JOIN Cities ci 
+                    ON ci.CityId = cu.CityId
+                INNER JOIN Countries co 
+                    ON co.CountryId = ci.CountryId
+                GROUP BY co.CountryName
+                ORDER BY TotalAmount DESC";
+
+            var result = await _db.QueryAsync<CountryAreaTotalAmountDto>(query, commandTimeout: 120);
+
+            return result.ToList();
+        }
+
         public async Task<List<CountryOfCityDto>> GetCityAsync()
         {
             var query = @"

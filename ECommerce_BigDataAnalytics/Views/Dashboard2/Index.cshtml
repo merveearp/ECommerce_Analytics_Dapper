@@ -79,8 +79,26 @@
 
         </div>
 
-        <br />
-        <br />
+            <div class="row g-4">
+
+               
+                <div class="col-xl-8 col-lg-5 col-md-12">
+
+                    @await Component.InvokeAsync("_UIDashboard2AreaComponent")
+                </div>
+
+               
+                <div class="col-xl-4 col-lg-5 col-md-12">
+                    @await Component.InvokeAsync("_UIDashboard2RevenueTableComponent")
+                </div>
+
+            </div>
+              
+
+
+            </div>
+
+
 
     </div>
 </div>

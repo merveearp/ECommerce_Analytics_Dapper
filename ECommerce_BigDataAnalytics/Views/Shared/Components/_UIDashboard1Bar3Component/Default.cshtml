@@ -1,0 +1,95 @@
+﻿@model List<Bar3ChartDto>
+@using System.Text.Json
+
+<div class="card shadow-sm border-0 h-100">
+
+    <div class="card-header bg-white border-0">
+        <h5 class="mb-0 fw-semibold text-primary">
+            <i class="bi bi-pie-chart me-2"></i>
+            Kategori Bazlı Ciro Dağılımı
+        </h5>
+    </div>
+
+    <div class="card-body">
+
+        <canvas id="categoryRevenueChart" height="200"></canvas>
+
+        <hr />
+        <hr />
+
+        <br />
+        <br />
+
+
+        <div class="row small">
+
+            @foreach (var item in Model)
+            {
+                <div class="col-6 mb-2 d-flex justify-content-between">
+
+                    <span>
+                        <i class="bi bi-square-fill text-primary me-1"></i>
+                        @item.CategoryName
+                    </span>
+
+                    <span class="fw-semibold text-success">
+                        $ @item.Revenue.ToString("N0")
+                    </span>
+
+                </div>
+            }
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const data = @Html.Raw(JsonSerializer.Serialize(Model));
+
+        const labels = data.map(x => x. CategoryName);
+        const values = data.map(x => x.Revenue);
+
+        const ctx = document.getElementById("categoryRevenueChart");
+
+        new Chart(ctx, {
+
+            type: "doughnut",
+
+            data: {
+                labels: labels,
+                datasets: [{
+                    data: values,
+                    backgroundColor: [
+                        "#4F46E5",
+                        "#22C55E",
+                        "#06B6D4",
+                        "#F59E0B",
+                        "#EF4444",
+                        "#8B5CF6",
+                        "#14B8A6",
+                        "#F97316"
+                    ],
+                    borderWidth: 1
+                }]
+            },
+
+            options: {
+                responsive: true,
+
+                plugins: {
+                    legend: {
+                        position: "bottom"
+                    }
+                }
+            }
+
+        });
+
+    });
+
+</script>

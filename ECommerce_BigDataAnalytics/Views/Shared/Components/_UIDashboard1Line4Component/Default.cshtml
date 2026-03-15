@@ -1,0 +1,75 @@
+﻿@model List<CategoryMonthlyRevenueDto>
+
+    
+<div class="card">
+    <h5 class="card-header">Aylık Sipariş Süreci </h5>
+    <div class="card-body" style="height:300px;">
+        <canvas id="countryRevenueChart"></canvas>
+    </div>
+</div>
+
+
+<script>
+
+
+
+        document.addEventListener("DOMContentLoaded", function(){
+
+    const months = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(ViewBag.Months));
+    const electronics = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(ViewBag.Electronics));
+    const fashion = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(ViewBag.BeyazEsya));
+    const home = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(ViewBag.Fashion));
+
+    const ctx = document.getElementById("countryRevenueChart");
+
+    new Chart(ctx,{
+    type:"line",
+
+    data:{
+    labels:months,
+    datasets:[
+
+    {
+    label:"Elektronik",
+    data:electronics,
+    fill:true,
+    borderColor:"#4e73df",
+    backgroundColor:"rgba(78,115,223,0.2)",
+    tension:0.4
+    },
+
+    {
+    label:"Beyaz Eşya",
+    data:fashion,
+    fill:true,
+    borderColor:"#e83e8c",
+    backgroundColor:"rgba(232,62,140,0.2)",
+    tension:0.4
+    },
+
+    {
+    label:"Giyim",
+    data:home,
+    fill:true,
+    borderColor:"#1cc88a",
+    backgroundColor:"rgba(28,200,138,0.2)",
+    tension:0.4
+    }
+
+    ]
+    },
+
+    options:{
+    responsive:true,
+    plugins:{
+    legend:{display:true}
+    },
+    scales:{
+    y:{beginAtZero:true}
+    }
+    }
+
+    });
+
+    });
+</script>
