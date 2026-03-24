@@ -1,8 +1,9 @@
 using ECommerce_BigDataAnalytics.Context;
 using ECommerce_BigDataAnalytics.Extensions;
+using ECommerce_BigDataAnalytics.Services;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Services.AddScoped<RevenueForecastService>();
 builder.Services.AddRepository();
 builder.Services.AddScoped<AppDbContext>();
 builder.Services.AddControllersWithViews();
@@ -12,7 +13,6 @@ builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");

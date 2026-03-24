@@ -1,0 +1,65 @@
+﻿@using ECommerce_BigDataAnalytics.Dtos.CountryDto
+@model List<CountryCustomerDto>
+
+
+    
+<div class="card h-100">
+    <h5 class="card-header">Ülke Durum & Müşteri Sayısı</h5>
+    <div class="card-body d-flex justify-content-center align-items-center">
+        <canvas id="doughnut1" style="max-height:300px;"></canvas>
+    </div>
+</div>
+
+@using System.Text.Json
+
+<script>
+
+    const data = @Html.Raw(JsonSerializer.Serialize(Model));
+
+    const labels = data.map(x => x.CountryName);
+    const values = data.map(x => x.CustomerCount);
+
+    const ctx = document.getElementById('doughnut1');
+
+    if (ctx) {
+    new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: labels,
+               datasets: [{
+                data: values,
+                hoverOffset: 10,
+                borderColor: '#fff',
+                borderWidth: 2,
+                backgroundColor: [
+                    '#1D4ED8',
+                    '#3B82F6',
+                    '#60A5FA',
+                    '#93C5FD',
+                    '#0EA5E9',
+                    '#38BDF8',
+                    '#6366F1',
+                    '#818CF8',
+                    '#14B8A6',
+                    '#2DD4BF'
+                ]
+            }]
+        },
+        options: {
+            cutout: '50%', 
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'right',
+                    labels: {
+                        usePointStyle: true,
+                        padding: 14
+                    }
+                }
+            }
+        }
+    });
+    }
+
+</script>

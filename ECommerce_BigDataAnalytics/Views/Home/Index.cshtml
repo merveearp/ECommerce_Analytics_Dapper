@@ -21,48 +21,41 @@
        
         <div class="row">
 
-            @await Component.InvokeAsync("_UIWidget1Component")
-            @await Component.InvokeAsync("_UIWidget2Component")
 
-            <!-- Revenue -->
-            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 mb-4">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <h5 class="text-muted">Revenue</h5>
+            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
 
-                        <div class="d-flex justify-content-between align-items-center">
-                            <h1 class="mb-0 text-primary">$5,656</h1>
-                            <span class="text-danger fw-bold">
-                                <i class="fa fa-caret-down"></i> 7%
-                            </span>
-                        </div>
-                    </div>
-                    <div id="sparkline-3"></div>
-                </div>
+                @await Component.InvokeAsync("_UIWidget1Component")
+
             </div>
 
-            <!-- Growth -->
-            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 mb-4">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <h5 class="text-muted">Growth</h5>
+            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
 
-                        <div class="d-flex justify-content-between align-items-center">
-                            <h1 class="mb-0 text-primary">28.45%</h1>
-                            <span class="text-success fw-bold">
-                                <i class="fa fa-caret-up"></i> 4.87%
-                            </span>
-                        </div>
-                    </div>
-                    <div id="sparkline-4"></div>
-                </div>
+                @await Component.InvokeAsync("_UIWidget2ComponentV1")
+
+            </div>
+
+
+           
+           
+            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 mb-4">
+                @await Component.InvokeAsync("_UIWidget3Component")
             </div>
 
 
 
+            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 mb-4">
+                @await Component.InvokeAsync("_UIWidget4Component")
+            </div>
+
+            
+      
 
 
         </div>
+
+        <br />
+        <br />
+
         
         <div class="row">
 
@@ -98,23 +91,28 @@
 
         <br />
 
+        <div class="row g-3">
 
-        <div class="row">
-           
-            <div class="col-xl-3 col-lg-12 col-md-3 col-sm-12 col-12">
-                @await Component.InvokeAsync("_UIProfit1Component")
+            <div class="col-xl-3 col-lg-4 col-md-12">
+
+                <div class="mb-3">
+                    @await Component.InvokeAsync("_UIProfit1Component")
+                </div>
+
+                <div>
+                    @await Component.InvokeAsync("_UIWidget2Component")
+                </div>
 
             </div>
-            <!-- recent orders  -->
+
           
-            <div class="col-xl-9 col-lg-12 col-md-6 col-sm-12 col-12">
+            <div class="col-xl-9 col-lg-8 col-md-12">
                 @await Component.InvokeAsync("_UITable2Component")
-
             </div>
-        
-            <!-- end recent orders  -->
-          
+
         </div>
+
+
 
         <br /><br />
 
@@ -124,7 +122,7 @@
                 @await Component.InvokeAsync("_UIStockTableComponent")
 
             </div>
-            <!-- recent orders  -->
+       
           
             <div class="col-xl-6 col-lg-12 col-md-6 col-sm-12 col-12">
                 @await Component.InvokeAsync("_UILowStockComponent")
@@ -132,10 +130,6 @@
 
             </div>
         
-           
-
-            <!-- end recent orders  -->
-          
         </div>
 
         <br />
@@ -147,16 +141,13 @@
                 @await Component.InvokeAsync("_UIDoughnetChart2Component")
 
             </div>
-            <!-- recent orders  -->
-          
+           
             <div class="col-xl-7 col-lg-12 col-md-6 col-sm-12 col-12">
                 @await Component.InvokeAsync("_UIBar4Component")
               
 
             </div>
         
-            <!-- end recent orders  -->
-          
         </div>
 
 

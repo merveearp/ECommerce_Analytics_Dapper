@@ -98,7 +98,7 @@ namespace ECommerce_BigDataAnalytics.Repositories.CountryWidgetRepositories
         JOIN Countries co ON co.CountryId = ci.CountryId
         GROUP BY co.CountryName, co.CountryCode
         ORDER BY CustomerCount DESC
-    ";
+        ";
 
             var result = await _db.QueryAsync<CountryCustomerDto>(query, commandTimeout: 120);
 

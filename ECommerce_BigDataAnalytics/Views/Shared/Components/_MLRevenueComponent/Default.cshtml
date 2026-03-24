@@ -1,0 +1,64 @@
+﻿<div class="card shadow-sm border-0 h-100">
+
+    <div class="card-header bg-white border-0">
+        <h5 class="mb-0 fw-semibold text-primary">
+            <i class="bi bi-graph-up-arrow me-2"></i>
+            📈 2026 Aylık Ciro Tahmini (AI Forecast)
+        </h5>
+    </div>
+
+    <div class="card-body" style="height:350px;">
+        <canvas id="forecastChart"></canvas>
+    </div>
+
+</div>
+<script>
+
+    const forecast = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(ViewBag.Forecast));
+
+    const labels = [
+        "Ocak","Şubat","Mart","Nisan","Mayıs","Haziran",
+        "Temmuz","Ağustos","Eylül","Ekim","Kasım","Aralık"
+    ];
+
+    const ctx = document.getElementById("forecastChart").getContext("2d");
+
+    new Chart(ctx, {
+        type: "line",
+        data: {
+            labels: labels,
+            datasets: [{
+                label: "2026 Tahmini Ciro",
+                data: forecast,
+                borderColor: "#3B82F6",
+                backgroundColor: "rgba(59,130,246,0.2)",
+                fill: true,
+                tension: 0.4,
+                pointRadius: 4
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return "₺ " + context.raw.toLocaleString();
+                        }
+                    }
+                }
+            },
+
+            scales: {
+                y: {
+                    ticks: {
+                        callback: val => "₺ " + val.toLocaleString()
+                    }
+                }
+            }
+        }
+    });
+
+</script>

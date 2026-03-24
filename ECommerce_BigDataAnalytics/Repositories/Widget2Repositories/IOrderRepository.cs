@@ -3,6 +3,7 @@
     public interface IOrderRepository
     {
         Task<int> GetLast7DaysOrderCountAsync();
+        Task<int> TotalOrder();
         Task<int> GetPrevious7DaysOrderCountAsync();
         Task<List<int>> GetLast7DaysDailyOrderCountsAsync();
     }

@@ -67,7 +67,7 @@ namespace ECommerce_BigDataAnalytics.Repositories.TableRepositories
         {
             var query = @"
 
-                select top(10)
+                select top(15)
                     g.CategoryName as 'CategoryName',
                     t.ProductName as 'ProductName' ,
                     d.Quantity as 'Quantity',
@@ -97,22 +97,22 @@ namespace ECommerce_BigDataAnalytics.Repositories.TableRepositories
             var query = @"
 
                SELECT 
-                CASE 
-                    WHEN StockQuantity BETWEEN 0 AND 20 THEN '0-20 (Kritik)'
-                    WHEN StockQuantity BETWEEN 21 AND 80 THEN '21-80 (Düşük)'
-                    WHEN StockQuantity BETWEEN 81 AND 200 THEN '81-200 (Normal)'
-                    WHEN StockQuantity BETWEEN 201 AND 400 THEN '201-400 (Yüksek)'
-                    ELSE '400+ (Aşırı)'
+                CASE  
+                    WHEN StockQuantity BETWEEN 0 AND 20 THEN '0-50 (Kritik)'
+                    WHEN StockQuantity BETWEEN 21 AND 80 THEN '51-250 (Düşük)'
+                    WHEN StockQuantity BETWEEN 81 AND 200 THEN '251-750 (Normal)'
+                    WHEN StockQuantity BETWEEN 201 AND 400 THEN '751-1000 (Yüksek)'
+                    ELSE '1000+ (Aşırı)'
                 END AS StockRange,
                 COUNT(*) AS ProductCount
                 FROM Products
                 GROUP BY 
                 CASE 
-                    WHEN StockQuantity BETWEEN 0 AND 20 THEN '0-20 (Kritik)'
-                    WHEN StockQuantity BETWEEN 21 AND 80 THEN '21-80 (Düşük)'
-                    WHEN StockQuantity BETWEEN 81 AND 200 THEN '81-200 (Normal)'
-                    WHEN StockQuantity BETWEEN 201 AND 400 THEN '201-400 (Yüksek)'
-                    ELSE '400+ (Aşırı)'
+                    WHEN StockQuantity BETWEEN 0 AND 20 THEN '0-50 (Kritik)'
+                    WHEN StockQuantity BETWEEN 21 AND 80 THEN '51-250 (Düşük)'
+                    WHEN StockQuantity BETWEEN 81 AND 200 THEN '251-750 (Normal)'
+                    WHEN StockQuantity BETWEEN 201 AND 400 THEN '751-1000 (Yüksek)'
+                    ELSE '1000+ (Aşırı)'
                 END
                 ORDER BY StockRange";
             var result = await _db.QueryAsync<StockDistributionDto>(query, commandTimeout: 120);

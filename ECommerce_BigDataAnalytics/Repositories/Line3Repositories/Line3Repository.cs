@@ -33,5 +33,30 @@ namespace ECommerce_BigDataAnalytics.Repositories.Line3Repositories
             return result.ToList();
 
         }
+
+        public async Task<List<MonthlyTotalAmountDto>> GetTotalAmountByMountly2024()
+        {
+            var query = @"
+
+            SET LANGUAGE Turkish;
+            SELECT
+                DATENAME(MONTH, OrderDate) AS MonthName,
+                SUM(TotalAmount) AS TotalAmount
+            FROM Orders
+            WHERE OrderStatusId <> 5
+              AND OrderDate >= '2024-01-01'
+              AND OrderDate <  '2025-01-01'
+            GROUP BY
+                MONTH(OrderDate),
+                DATENAME(MONTH, OrderDate)
+            ORDER BY
+                MONTH(OrderDate);
+
+            ";
+
+            var result = await _db.QueryAsync<MonthlyTotalAmountDto>(query, commandTimeout: 120);
+            return result.ToList();
+
+        }
     }
 }

@@ -1,0 +1,84 @@
+﻿@{
+    ViewData["Title"] = "Dashboard1";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="dashboard-ecommerce">
+    <div class="container-fluid dashboard-content">
+
+        <div class="row mb-3">
+            <div class="col-12">
+
+                <h4 class="mb-1 fw-bold d-flex align-items-center">
+
+                    <i class="bi bi-cpu me-2 text-primary"></i>
+                    Makine Öğrenmesi ile Ciro Tahminleme
+
+                    <span class="badge bg-success ms-2"
+                          data-bs-toggle="tooltip"
+                          data-bs-placement="right"
+                          title="ML.NET Time Series Forecasting">
+                        ML Powered
+                    </span>
+
+                </h4>
+
+                <p class="text-muted mb-0">
+                    Bu sayfada, 2025 yılına ait geçmiş satış verileri kullanılarak geliştirilen makine öğrenmesi modeli ile
+                    2026 yılına yönelik ciro tahminleri oluşturulmaktadır. ML.NET tabanlı zaman serisi (Time Series) algoritmaları
+                    sayesinde sistem; geçmiş eğilimleri, mevsimsel değişimleri ve veri içerisindeki dalgalanmaları analiz ederek
+                    geleceğe yönelik öngörüler sunar.
+            
+                    Elde edilen tahminler, veri odaklı karar alma süreçlerini desteklemek, gelir projeksiyonlarını güçlendirmek
+                    ve geleceğe yönelik planlamaların daha sağlıklı yapılmasına katkı sağlamak amacıyla sunulmaktadır.
+                </p>
+
+            </div>
+        </div>
+
+        <div class="row mt-4">
+
+            <div class="col-12 mb-3">
+                <div class="bg-white p-3 rounded shadow-sm">
+                    <h5 class="fw-bold mb-1">
+                        📊 2026 Yılı Satış Dağılım Analizi
+                    </h5>
+                    <p class="text-muted mb-0 small">
+                        2026 yılına ait aylık satış performansı ve dağılım grafikleri
+                    </p>
+                </div>
+            </div>
+
+          
+            <div class="col-xl-6 col-lg-5 col-md-12">
+
+              @await Component.InvokeAsync("_MLRevenueComponent") 
+
+            </div> 
+        </div>
+
+      
+
+
+    </div>
+</div>
+
+
+<script>
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+</script>
+
+
+
+
+
+
+
+
+
+
+
+

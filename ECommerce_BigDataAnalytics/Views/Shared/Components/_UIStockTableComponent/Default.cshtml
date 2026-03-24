@@ -26,11 +26,13 @@
 
         const colors = labels.map(label => {
 
-    if (label.includes("0-20"))   return "#A81C0D";   // kritik stok
-    if (label.includes("21-80"))  return "#F0EE60";   // düşük stok
-    if (label.includes("81-200")) return "#9AE05C";   // ideal
-    if (label.includes("201-400")) return "#48C2E0";  // yüksek
+    if (label.includes("0-50"))   return "#A81C0D";   // kritik stok
+    if (label.includes("51-250"))  return "#F0EE60";   // düşük stok
+    if (label.includes("251-750")) return "#9AE05C";   // ideal
+    if (label.includes("751-1000")) return "#48C2E0";  // yüksek
     return "#203475";                                 // aşırı stok
+
+    
 
         });
 

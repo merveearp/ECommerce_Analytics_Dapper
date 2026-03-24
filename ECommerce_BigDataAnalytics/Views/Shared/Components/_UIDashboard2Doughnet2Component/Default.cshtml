@@ -1,0 +1,91 @@
+﻿@using ECommerce_BigDataAnalytics.Dtos.CountryDto
+@model List<CustomerCountryMapDto>
+
+
+    
+<div class="card h-100">
+    <h5 class="card-header">Ülke Durum & Sipariş Sayısı</h5>
+    <div class="card-body d-flex justify-content-center align-items-center">
+        <canvas id="doughnut2" style="max-height:300px;"></canvas>
+    </div>
+</div>
+
+@using System.Text.Json
+<script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const data = @Html.Raw(JsonSerializer.Serialize(Model));
+
+        const labels = data.map(x => x.CountryName);
+        const values = data.map(x => x.OrderCount);
+
+        const ctx = document.getElementById('doughnut2');
+
+        if (!ctx) return;
+
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: labels,
+                datasets: [{
+                    data: values,
+                    hoverOffset: 10,
+
+                       backgroundColor: [
+                        '#2563EB', // güçlü mavi
+                        '#3B82F6', // mavi
+                        '#60A5FA', // açık mavi
+                        '#93C5FD', // soft mavi
+
+                        '#06B6D4', // cyan
+                        '#22C55E', // yeşil (ayrım için)
+
+                        '#F59E0B', // turuncu (çok iyi kontrast)
+                        '#EF4444', // kırmızı
+
+                        '#8B5CF6', // mor
+                        '#14B8A6'  // teal
+                    ],
+
+                    borderColor: '#fff',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                cutout: '55%',
+                responsive: true,
+                maintainAspectRatio: false,
+
+                plugins: {
+                    legend: {
+                        position: 'right',
+                        labels: {
+                            usePointStyle: true,
+                            pointStyle: 'circle',
+                            padding: 16,
+                            font: {
+                                size: 13
+                            }
+                        }
+                    },
+
+                    tooltip: {
+                        backgroundColor: '#0f172a',
+                        titleColor: '#fff',
+                        bodyColor: '#e5e7eb',
+                        padding: 10,
+                        cornerRadius: 8,
+                        callbacks: {
+                            label: function (context) {
+                                return `${context.label}: ${context.raw}`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+    });
+
+</script>

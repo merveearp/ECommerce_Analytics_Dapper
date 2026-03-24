@@ -2,9 +2,8 @@
 {
     public interface ICustomerRepository
     {
-        Task<int> GetLast7DaysCustomerCountAsync();
-        Task<int> GetPrevious7DaysCustomerCountAsync();
-        Task<List<int>> GetLast7DaysDailyCustomerCountsAsync();
+        Task<int> TotalCustomer();
+        
 
     }
 }

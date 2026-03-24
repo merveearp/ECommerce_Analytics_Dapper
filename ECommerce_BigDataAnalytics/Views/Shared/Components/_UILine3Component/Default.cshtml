@@ -6,83 +6,127 @@
     var totals = Model.Select(x => x.TotalAmount).ToList();
 }
 
-<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+
   <div class="card">
-    <h5 class="card-header">Aylık Ciro (Total Amount)</h5>
+    <h5 class="card-header fw-semibold text-success">
+        💰2025 | Aylık Ciro
+    </h5>
+
         <div class="card-body" style="height:360px;">
         <canvas id="linechart3"></canvas>
     </div>
     </div>
-</div>
+
 
 
 <script>
-    const ctx3 = document.getElementById('linechart3').getContext('2d');
+    document.addEventListener("DOMContentLoaded", function () {
 
-    new Chart(ctx3, {
-        type: 'line',
-        data: {
-            labels: @Html.Raw(JsonSerializer.Serialize(months)),
-            datasets: [{
-                label: 'Aylık Toplam Ciro',
-                data: @Html.Raw(JsonSerializer.Serialize(totals)),
+        const ctx = document.getElementById('linechart3').getContext('2d');
 
-               
-                   borderColor: '#10B981',
-    backgroundColor: 'rgba(16,185,129,0.15)',
+        const dataValues = @Html.Raw(JsonSerializer.Serialize(totals));
 
+      
+        const gradient = ctx.createLinearGradient(0, 0, 0, 300);
+        gradient.addColorStop(0, 'rgba(16,185,129,0.45)');
+        gradient.addColorStop(1, 'rgba(16,185,129,0.03)');
 
-               
-                borderWidth: 3,
+    
+        const maxValue = Math.max(...dataValues);
+        const minValue = Math.min(...dataValues);
 
-               
-                tension: 0.4,
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: @Html.Raw(JsonSerializer.Serialize(months)),
+                datasets: [{
+                    label: 'Toplam Ciro ($)',
+                    data: dataValues,
 
-               
-                pointRadius: 4,
-                pointHoverRadius: 6,
-                pointBackgroundColor: '#6366F1',
-                pointBorderColor: '#ffffff',
-                pointBorderWidth: 2,
+                    borderColor: '#059669',
+                    backgroundColor: gradient,
 
-               
-                fill: true
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
+                    borderWidth: 3,
+                    tension: 0.4,
+                    fill: true,
 
-            plugins: {
-                legend: {
-                    labels: {
-                        usePointStyle: true,
-                        pointStyle: 'line'
-                    }
-                },
-                tooltip: {
-                    callbacks: {
-                        label: function (context) {
-                            return context.parsed.y.toLocaleString('tr-TR') + ' ₺';
-                        }
-                    }
-                }
+                   
+                    pointBackgroundColor: dataValues.map(v => {
+                        if (v === maxValue) return '#DC2626';
+                        if (v === minValue) return '#2563EB';
+                        return '#059669';
+                    }),
+
+                    pointRadius: dataValues.map(v => v === maxValue || v === minValue ? 6 : 4),
+                    pointHoverRadius: 8,
+
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 2
+                }]
             },
 
-            scales: {
-                x: {
-                    grid: {
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+
+                interaction: {
+                    mode: 'index',
+                    intersect: false
+                },
+
+                plugins: {
+                    legend: {
                         display: false
+                    },
+
+                    tooltip: {
+                        backgroundColor: '#111827',
+                        titleColor: '#fff',
+                        bodyColor: '#e5e7eb',
+                        padding: 10,
+                        callbacks: {
+                            label: function (context) {
+
+                                let value = context.parsed.y.toLocaleString('en-US', {
+                                    style: 'currency',
+                                    currency: 'USD',
+                                    maximumFractionDigits: 0
+                                });
+
+                                if (context.parsed.y === maxValue)
+                                    value += ' 🔥 Zirve';
+
+                                if (context.parsed.y === minValue)
+                                    value += ' 📉 En Düşük';
+
+                                return value;
+                            }
+                        }
                     }
                 },
-                y: {
-                    ticks: {
-                        callback: function (value) {
-                            return value.toLocaleString('tr-TR') + ' ₺';
+
+                scales: {
+                    x: {
+                        grid: { display: false },
+                        ticks: { color: '#6B7280' }
+                    },
+
+                    y: {
+                        grid: { color: 'rgba(0,0,0,0.05)' },
+                        ticks: {
+                            color: '#6B7280',
+                            callback: function (value) {
+                                return value.toLocaleString('en-US', {
+                                    style: 'currency',
+                                    currency: 'USD',
+                                    maximumFractionDigits: 0
+                                });
+                            }
                         }
                     }
                 }
             }
-        }
+        });
+
     });
 </script>

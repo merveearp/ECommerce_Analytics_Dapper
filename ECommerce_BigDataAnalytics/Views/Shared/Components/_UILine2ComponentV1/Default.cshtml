@@ -1,0 +1,121 @@
+﻿@using System.Text.Json
+@model List<MonthlyOrderCountDto>
+
+@{
+    var months = Model.Select(x => x.MonthName).ToList();
+    var counts = Model.Select(x => x.OrderCount).ToList();
+}
+
+
+    <div class="card shadow-sm border-0 rounded-4">
+
+        <h5 class="card-header fw-semibold text-primary">
+            📊 2024 Aylık Sipariş Sayısı
+        </h5>
+
+        <div class="card-body" style="height:360px;">
+            <canvas id="linechart2v1"></canvas>
+        </div>
+
+    </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const ctx = document.getElementById('linechart2v1').getContext('2d');
+
+        const dataValues = @Html.Raw(JsonSerializer.Serialize(counts));
+
+  
+        const gradient = ctx.createLinearGradient(0, 0, 0, 300);
+        gradient.addColorStop(0, 'rgba(239,68,68,0.45)');
+        gradient.addColorStop(1, 'rgba(239,68,68,0.03)');
+
+
+        const maxValue = Math.max(...dataValues);
+        const minValue = Math.min(...dataValues);
+
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: @Html.Raw(JsonSerializer.Serialize(months)),
+                datasets: [{
+                    label: 'Sipariş Sayısı',
+                    data: dataValues,
+
+                    borderColor: '#DC2626',
+                    backgroundColor: gradient,
+
+                    borderWidth: 3,
+                    tension: 0.4,
+
+                    fill: true,
+
+
+                    pointBackgroundColor: dataValues.map(v => {
+                        if (v === maxValue) return '#16A34A';   
+                        if (v === minValue) return '#2563EB';   
+                        return '#DC2626';                     
+                    }),
+
+                    pointRadius: dataValues.map(v => v === maxValue || v === minValue ? 6 : 4),
+                    pointHoverRadius: 8,
+
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 2
+                }]
+            },
+
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+
+                interaction: {
+                    mode: 'index',
+                    intersect: false
+                },
+
+                plugins: {
+                    legend: { display: false },
+
+                    tooltip: {
+                        backgroundColor: '#111827',
+                        titleColor: '#fff',
+                        bodyColor: '#e5e7eb',
+                        padding: 10,
+                        callbacks: {
+                            label: function (context) {
+
+                                let label = context.parsed.y.toLocaleString('tr-TR') + ' sipariş';
+
+                                if (context.parsed.y === maxValue)
+                                    label += ' 🔥 Zirve';
+
+                                if (context.parsed.y === minValue)
+                                    label += ' 📉 En Düşük';
+
+                                return label;
+                            }
+                        }
+                    }
+                },
+
+                scales: {
+                    x: {
+                        grid: { display: false },
+                        ticks: { color: '#6B7280' }
+                    },
+
+                    y: {
+                        grid: { color: 'rgba(0,0,0,0.05)' },
+                        ticks: {
+                            color: '#6B7280',
+                            callback: value => value.toLocaleString('tr-TR')
+                        }
+                    }
+                }
+            }
+        });
+
+    });
+</script>

@@ -5,5 +5,6 @@ namespace ECommerce_BigDataAnalytics.Repositories.Line2Repositories
     public interface ILine2Repository
     {
         Task<List<MonthlyOrderCountDto>> GetOrderCountByMonthly();
+        Task<List<MonthlyOrderCountDto>> GetOrderCountByMonthly2024();
     }
 }

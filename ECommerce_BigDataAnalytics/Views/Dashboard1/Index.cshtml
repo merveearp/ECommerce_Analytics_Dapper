@@ -21,26 +21,55 @@
             @await Component.InvokeAsync("_UIPaymentWidgetsComponent")
 
 
-
-
         <div class="row mt-4">
 
-            <div class="col-12 mb-3">
-                <div class="bg-white p-3 rounded shadow-sm">
+            <!-- SOL: 2024 -->
+            <div class="col-6">
+
+                <div class="bg-white p-3 rounded shadow-sm mb-3">
+                    <h5 class="fw-bold mb-1">
+                        📊 2024 Yılı Satış Dağılım Analizi
+                    </h5>
+                    <p class="text-muted mb-0 small">
+                        2024 yılına ait aylık satış performansı
+                    </p>
+                </div>
+
+                <div class="mb-3">
+                    @await Component.InvokeAsync("_UILine2ComponentV1")
+                </div>
+
+                <div>
+                    @await Component.InvokeAsync("_UILine3ComponentV1")
+                </div>
+
+            </div>
+
+
+            <!-- SAĞ: 2025 -->
+            <div class="col-6">
+
+                <div class="bg-white p-3 rounded shadow-sm mb-3">
                     <h5 class="fw-bold mb-1">
                         📊 2025 Yılı Satış Dağılım Analizi
                     </h5>
                     <p class="text-muted mb-0 small">
-                        2025 yılına ait aylık satış performansı ve dağılım grafikleri
+                        2025 yılına ait aylık satış performansı
                     </p>
                 </div>
+
+                <div class="mb-3">
+                    @await Component.InvokeAsync("_UILine2Component")
+                </div>
+
+                <div>
+                    @await Component.InvokeAsync("_UILine3Component")
+                </div>
+
             </div>
 
-            @await Component.InvokeAsync("_UILine2Component")
-
-            @await Component.InvokeAsync("_UILine3Component")
-
         </div>
+
 
         <div class="row g-4">
 
